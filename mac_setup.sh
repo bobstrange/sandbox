@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 # AppStore http://machacks.whiskykilo.com/hacks/app-store.html
 
 # To list all available updates
@@ -21,7 +25,7 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
 # Change Dock Tile Size
-defaults write com.apple.dock tilesize -integer 24
+defaults write com.apple.dock tilesize -integer 36 
 
 # Kill the Dashboard
 defaults write com.apple.dashboard mcx-disabled -boolean YES
