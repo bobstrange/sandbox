@@ -5,4 +5,3 @@ new_array = array.map do |item|
   item * item
 end
 
-print new_array
