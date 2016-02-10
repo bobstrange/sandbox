@@ -1,0 +1,22 @@
+{
+  "name": "sandbox",
+  "version": "1.0.1",
+  "description": "---",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bob1983/sandbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bob1983/sandbox/issues"
+  },
+  "homepage": "https://github.com/bob1983/sandbox#readme",
+  "dependencies": {
+    "github-changes": "^1.0.1"
+  }
+}
