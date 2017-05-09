@@ -1,0 +1,11 @@
+<style>
+
+#playButton {
+  height: 30px;
+  width:  30px;
+  border: none;
+  background-size: 50% 50%;
+  background-position: center;
+}
+
+</style>
