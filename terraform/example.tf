@@ -19,9 +19,10 @@ resource "aws_instance" "example" {
     command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
   }
 
+  # 実際に削除される前に呼ばれる
   provisioner "local-exec" {
     when    = "destroy"
-    command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
+    command = "echo 'Removed '${aws_instance.example.public_ip} >> ip_address.txt"
   }
 }
 
