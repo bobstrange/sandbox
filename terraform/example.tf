@@ -1,6 +1,9 @@
+variable "profile_name" { }
+variable "region" { }
+
 provider "aws" {
-  profile = "bob"
-  region  = "ap-northeast-1"
+  profile = "${var.profile_name}"
+  region  = "${var.region}"
 }
 
 resource "aws_instance" "example" {
