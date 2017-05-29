@@ -18,22 +18,26 @@ resource "aws_instance" "example" {
   # - local-exec
   # - remote-exec
 
-  provisioner "local-exec" {
-    command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
-  }
-
-  # 実際に削除される前に呼ばれる
-  provisioner "local-exec" {
-    when    = "destroy"
-    command = "echo 'Removed '${aws_instance.example.public_ip} >> ip_address.txt"
-  }
+  # provisioner "local-exec" {
+  #   command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
+  # }
+  #
+  # # 実際に削除される前に呼ばれる
+  # provisioner "local-exec" {
+  #   when    = "destroy"
+  #   command = "echo 'Removed '${aws_instance.example.public_ip} >> ip_address.txt"
+  # }
 }
 
-# resource "aws_eip" "ip" {
-#   instance = "${aws_instance.example.id}"
-# }
+resource "aws_eip" "ip" {
+  instance = "${aws_instance.example.id}"
+}
 
 # resource "aws_instance" "example2" {
 #   ami           = "ami-923d12f5"
 #   instance_type = "t2.micro"
 # }
+
+output "ip" {
+  value = "${aws_eip.ip.public_ip}"
+}
