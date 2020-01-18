@@ -13,3 +13,7 @@
     - exectable `main` will be generated
 - Cargo
     - build system and package manager
+    - `cargo build`
+        - `./target/debug/hello-cargo` will be generated
+    - `cargo run` to compile then run the resulting exectable
+    - `cargo check`
