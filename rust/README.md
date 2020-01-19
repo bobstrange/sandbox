@@ -29,4 +29,24 @@
     - `.read_line(&mut guess)` to take whatever the user types into standard input and place that into a string.
         - the `&` indicaes that this argument is a reference.
     - `.expect("Failed to read line")` to handle potential failure
+    - `read_line` returns an `io::Result`
+        - `Result` -> `Ok` or `Err`
+        - The purpose of these `Result` types is to encode error-hadling information.
+        - An instance of `io::result` has an `expect` method.
+    - String interpolation
+        `println!("You guessed: {}", guess)`
+    - Add `rand` dependency
+        - `Cargo.toml`
+            - `[dependencies]`
+            - `rand = "^0.5.5"`
+    - Update dependency
+        - Modify `Cargo.toml`
+            - `rand = "^0.6.0"`
+            - Run `cargo update`
+    - Comparing the Guess to the Secret Number
+        - `use std::cmp::Ordering`
+    - parse a string into some kind of number
+        - `let guess: u32 = guess.trim().parse()`
+            - we need to tell Rust the exact number type we want by using `u32`
+
 
