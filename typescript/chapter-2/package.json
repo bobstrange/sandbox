@@ -1,0 +1,18 @@
+{
+  "name": "chapter-2",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bobStrange <bob.is.strange.1983@gmail.com> (https://github.com/bob1983)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^13.1.8",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "eslint": "^6.8.0",
+    "typescript": "^3.7.5"
+  }
+}
