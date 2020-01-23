@@ -239,3 +239,272 @@ flip(Flippable.Chair)
 flip(100) // Error
 flip('Hat') // Error
 ```
+
+## Optional and Default Parameters
+
+When declaring your function's parameters, required parameters have to come first.
+
+```
+function log(message: string, userId?: string) {
+    let time = new Date().toLocaleTimeString()
+    console.log(time, message, userId || 'Not signed in')
+}
+log('Page loaded')
+log('User signed in', 'da763be')
+```
+
+You can provide default values for optional parameters.
+
+```
+function log(message: string, userId = 'Not signed in') {
+    let time = new Date().toLocaleTimeString()
+    console.log(time, message, userId)
+}
+log('Page loaded')
+log('User signed in', 'da763be')
+```
+
+## Rest parameters
+
+```
+function sumVariadic(...numbers: number[]): number {
+    return numbers.reduce((total, n) => total + n, 0)
+}
+```
+
+## call, apply and bind
+
+In addition to invoking a function with parentheses, JavaScript supports at least two other ways to call a function.
+
+```
+function add(a: number, b: number): number {
+    return a + b
+}
+
+add(10, 20)
+add.apply(null, [10, 20])
+add.call(null, 10, 20)
+add.bind(null, [10, 20])
+```
+
+`apply` binds a value to `this` within your function, and spreads its second argument over your
+function's parameters.
+`call` does the same, but applies its arguments in order instead of spreading.
+`bind` is similar, in that it binds `this` argument and a list of arguments to your function.
+The difference is that bind odes not invoke your function.
+
+## Generator Functions
+Generator functions are a convenient way to  generate a bunch of values.
+Because they're lazy, they only compute the next value when a consumer asks for it, they can do things
+that can be hard to do otherwise, like generate infinite lists.
+
+```
+function* createFibonacciGenerator() {
+    let a = 0
+    let b = 1
+    while (true) {
+        yield a
+        [a, b] = [b, a + b]
+    }
+}
+
+let fibonacciGenerator = createFibonacciGenerator()
+fibonacciGenerator.next() // { value: 0, done: false }
+fibonacciGenerator.next() // { value: 1, done: false }
+fibonacciGenerator.next() // { value: 1, done: false }
+fibonacciGenerator.next() // { value: 2, done: false }
+fibonacciGenerator.next() // { value: 3, done: false }
+fibonacciGenerator.next() // { value: 5, done: false }
+```
+
+The asterisk before a function's name makes that function a generator.
+Calling a generator returns an iterable iterator.
+
+```
+function* createNumbers(): IterableIterator<number> {
+    let n = 0
+    while (true) {
+        yield n
+        n += 1
+    }
+}
+let numbersGenerator = createNumbers()
+numbersGenerator.next()
+numbersGenerator.next()
+numbersGenerator.next()
+```
+
+## Iterators
+Iterators are flip side to generators: while generators a way to produce a stream of values,
+iterators are a way to consume those values.
+
+Iterable:
+Any object that contains a property called `SYmbol.iterator`, whose value is a function that
+returns an iterator.
+
+Iterator:
+Any object that defines a method called next, which returns an object with the
+properties `value` and `done`.
+
+```
+let numbers = {
+    *[Symbol.iterator]() {
+        for (let n = 1; n <= 10; n++) {
+            yield n
+        }
+    }
+}
+```
+
+## Call signatures
+
+```
+function add(a: number, b: number): number {
+    return a + b
+}
+```
+
+What is the type of `sum` ? -> `Function`
+How else can we type `sum` ? -> `(a: number, b: number) => number`
+
+This is TypeScript's syntax for a function's type, or `call signature`(also called a `type signature`)
+
+```
+type Greet = (name: string) => string
+type Log = (message: string, userId?: string) => void
+type SumVariadic = (...numbers: number[]) => number
+```
+
+The function's call signatures look remarkably similar to their implementations.
+
+```
+type Log = (message: string, userId?: string) => void
+let log: Log = (
+    message, // We don't need to annotate argument
+    userId = 'Not signed in' // We need to pass default value as it is "value" nor "type"
+) => { // We don't need to annotate return value
+    let time = new Date().toISOString()
+    console.log(time, message, userId)
+}
+```
+
+### Type Level and Value Level Code
+People use the terms "type-level" and "value-level" a lot when talking about programming
+with static types, and it helps to have a common vocabulary.
+
+## Contextual Typing
+
+```
+function times(
+    f: (index: number) => void,
+    n: number
+) {
+    for (let i = 0; i < n; i++) {
+        f(i)
+    }
+}
+```
+
+## Overloaded Function Types
+
+```
+// Shorthand call signature
+type Log = (message: string, userId?: string) => void
+
+// Full call signature
+type Log = {
+    (message: string, userId?: string): void
+}
+```
+
+For simple cases like our `Log` function, you should prefer the shorthand, but
+for more complicated functions, there are a few good use cases for full signatures.
+
+The first of these if `overloading` a function type.
+
+Overloaded function:
+A function with multiple call signatures.
+
+```
+type Reserve = {
+    (from: Date, to: Date, destination: string): Reservation
+}
+let reserve: Reserve = (from, to, destination) => {
+    // ...
+}
+```
+
+We might re-purpose our API to support one-way trips too:
+
+```
+type Reserve = {
+    (from: Date, to: Date, destination: string): Reservation
+    (from: Date, destination: string): Reservation
+}
+```
+
+Overloads come up naturally in browser DOM APIs.
+
+```
+type CreateElement = {
+    (tag: 'a'): HTMLAnchorElement
+    (tag: 'canvas'): HTMLCanvasElement
+    (tag: 'table'): HTMLTableElement
+    (tag: string): HTMLElement // catchall case
+}
+```
+
+```
+function warnUser(warning) {
+    if (warnUser.wasCalled) {
+        return
+    }
+    warnUser.wasCalled = true
+    alert(warning)
+}
+warnUser.wasCalled = false
+
+type WarnUser = {
+    (warning: string): void
+    wasCalled: boolean
+}
+```
+
+## Polymorphism
+Sometimes you don't know what type to expect beforehand, and you don't want to
+restrict your function's behavior to a specific type.
+
+```
+function filter(array, f) {
+    let result = []
+    for (let i = 0; i < array.length; i++) {
+        let item = array[i]
+        if (f(item)) {
+            result.push(item)
+        }
+    }
+    return result
+}
+
+filter([1, 2, 3, 4], _ => _ < 3) // evaluates to [1, 2]
+
+type Filter = {
+    (array: number[], f: (item: number) => boolean): number[]
+    (array: string[], f: (item: string) => boolean): string[]
+    (array: object[], f: (item: object) => boolean): object[]
+}
+```
+
+Rewrite it with a generic type parameter T:
+
+```
+type Filter = {
+    <T>(array: T[], f: (item: T) => boolean): T[]
+}
+```
+### Generic type parameter
+A placeholder type used to enforce a type-level constraint in multiple places.
+Also known as polymorphic type parameter.
+
+T is just a type name. By convention, people use uppercase single-letter names starting
+with the letter T and continuing U, V, W and so on depending on how many generics they need.
