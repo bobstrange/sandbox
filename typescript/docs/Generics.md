@@ -141,3 +141,142 @@ triggerEvent({ // T is Element | null
     target: document.querySelector('#myButton'),
     type: 'mouseover'
 })
+```
+
+## Bounded Polymorphism
+Let's say we're implementing a binary tree, and have three types of nodes:
+
+1. Regular Tree Nodes
+2. LeafNodes, which are TreeNodes that don't have children.
+3. InnerNodes, which are TreeNodes that do have children.
+
+```
+type TreeNode = {
+    value: string
+}
+
+type LeafNode = TreeNode & {
+    isLeaf: true
+}
+
+type InnerNode = TreeNode & {
+    children: [TreeNode] | [TreeNode, TreeNode]
+}
+```
+
+Let's write a mapNode function that takes a TreeNode and maps over its value, returning
+a new TreeNode.
+
+```
+let a: TreeNode = { value: 'a' }
+let b: LeafNode = { value: 'b', isLeaf: true }
+let c: InnerNode = { value: 'c', children: [b] }
+
+let a1 = mapNode(a, _ => _.toUpperCase())
+let b1 = mapNode(b, _ => _.toUpperCase())
+let c1 = mapNode(c, _ => _.toUpperCase())
+
+function mapNode<T extends TreeNode>( // T can be either a TreeNode or a subtype of TreeNode
+    node: T,
+    f: (value: string) => string
+): T {
+    return {
+        ...node,
+        value: f(node.value)
+    }
+}
+```
+
+If we had typed T as just T(leaving off `extends TreeNode`), then `mapNode` would
+have thrown a compile-time error.
+
+If we had left off the T entirely and declared mapNode as (node: TreeNode, f: (value: string) => string) => TreeNode, then we would have lost information after mapping a node: a1, b1, and c1 would all just be TreeNode.
+
+### Bounded polymorphism with multiple constraints
+
+```
+type HasSides = { numberOfSides: number }
+type SidesHaveLength = { sideLength: number }
+
+function logPerimeter<
+    Shape extends HasSIdes & SidesHaveLength
+>(s: Shape): Shape {
+    console.log(s.numberOfSides * s.sideLength)
+    return s
+}
+
+type Square = HasSides & SidesHaveLength
+let square = {
+    numberOfSides: 4,
+    sideLength: 3
+}
+
+logPerimeter(square)
+```
+
+### Using bounded polymorphism to model arity
+
+```
+function call(
+    f: (...args: unknown[]) => unknown,
+    ...args: unknown[]
+): unknown {
+    return f(...args)
+}
+
+function fill(length: number, value: string): string[] {
+    return Array.from({ length }, () => value)
+}
+
+call(fill, 10, 'a')
+```
+
+Let's fill the unknowns. The constraints we want to express are:
+
+- f should be a function that takes some set of arguments T, and returns some type R.
+We don't know how many arguments it'll have ahead of time.
+- call takes f, along with the same set of arguments T that f itself takes.
+- call returns the same type R that f returns
+
+```
+function call<T extends unknown[]>(
+    f: (...args: T) => R,
+    ...args: T
+): R {
+    return f(...args)
+}
+```
+
+## Generic Type Defaults
+
+Just like you can give function parameters default values, you ca give generic type parameters
+default types.
+
+```
+type MyEvent<T = HTMLElement> = {
+    target: T
+    type: string
+}
+```
+
+We can also add a bound to T, to make sure T is an HTML element.
+
+```
+type MyEvent<T extends HTMLElement = HTMLElement> = {
+    target: T
+    type: string
+}
+```
+
+## Type driven development
+
+Type-driven development:
+A style of programming where your sketch out type signatures first, and fill in values later.
+
+```
+function map<T, U>(array: T[], f: (item: T) => U): U[] {
+    // ...
+}
+```
+
+Just looking at that signature you should have some intuition for what map does !!!
