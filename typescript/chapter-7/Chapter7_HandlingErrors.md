@@ -163,3 +163,71 @@ has two options:
 
 1. Explicitly handle `Error1`
 2. Handle `T` and pass `Error1` through to its consumers to handle.
+
+## The option type
+
+You can also describe exceptions using special-purpose data types.
+THree of the most popular options ar the `Try`, `Option` and `Either` types.
+
+The idea is that instead of returning a value, your return a `container` that may
+chain operations even though there may not actually be a value inside.
+
+The container can be pretty much any data structure, so long as it can hold a value.
+For example you could use an array as the container:
+
+```ts
+function parse(birthday: string): Date[] {
+  let date = new Date(birthday)
+  if (!isValid(date)) {
+    return []
+  }
+  return [date]
+}
+
+let date = parse(ask())
+date.map(_ => _.toISOString()).forEach(_ => console.info(`Date is ${_}`))
+```
+
+It's hard to understand so let's wrap what we're doing.
+
+```ts
+ask()
+  .flatMap(parse)
+  .flatMap(date => new Some(date.toISOString()))
+  .flatMap(date => new Some(`Date is ${date}`))
+  .getOrElse('Error parsing date for some reason')
+```
+
+We'll define our `Option` type like this:
+
+- `Option` is an interface that is implemented by two classes: `Some<T>` and `None`
+- `Option` is both a type and a function. Its type is an interface that simply serves as the supertype of `Some` and `None`. Its function is the way to create a new value type `Option`.
+
+```ts
+interface Option<T> {
+  flatMap<U>(f: (value: T) => None): None
+  flatMap<U>(f: (value: T) => Option<U>): Option<U>
+  getOrElse(value: T): T
+}
+class Some<T> implements Option<T> {
+  constructor(private value: T) {}
+
+  flatMap<U>(f: (value: T) => None): None
+  flatMap<U>(f: (value: T) => Some<U>): Some<U>
+  flatMap<U>(f: (value: T) => Option<U>): Option<U> {
+    return f(this.value)
+  }
+  getOrElse(): T {
+    return this.value
+  }
+}
+
+class None implements Option<never> {
+  flatMap(): None {
+    return this
+  }
+  getOrElse<U>(value: U): U {
+    return value
+  }
+}
+```
