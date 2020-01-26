@@ -1,18 +1,23 @@
 import { LocalDataSource } from './data/local_data_source'
+import { HtmlDisplay } from './html_display'
+import 'bootstrap/dist/css/bootstrap.css'
 
-async function displayData(): Promise<string> {
-  let dataSource = new LocalDataSource()
-  let allProducts = await dataSource.getProducts("name")
-  let categories = await dataSource.getCategories()
-  let bicycleProducts = await dataSource.getProducts("name", "Bicycle")
+let dataSource = new LocalDataSource()
 
-  let result = ""
-
-  allProducts.forEach(product => result += `Product: ${product.name}, ${product.category}\n`)
-  categories.forEach(category => result += `Category: ${category}\n`)
-  bicycleProducts.forEach(product => dataSource.order.addProduct(product, 1))
-  result += `Order total: $${dataSource.order.total.toFixed(2)}`
-  return result
+async function displayData(): Promise<HTMLElement> {
+  let display = new HtmlDisplay()
+  display.props = {
+    products: await dataSource.getProducts("name"),
+    order: await dataSource.order
+  }
+  return display.getContent()
 }
 
-displayData().then(res => console.log(res))
+document.onreadystatechange = async () => {
+  if (document.readyState === 'complete') {
+    const element = await displayData()
+    const rootElement = document.getElementById('app')
+    rootElement.innerHTML = ''
+    rootElement.appendChild(element)
+  }
+}
