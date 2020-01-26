@@ -1,9 +1,11 @@
 # tools
 
+## build
 `tsc-watch`
 sourceファイルの変更を検知してビルドするだけでなく、`--onsuccess`
 でビルド成功後に実行したい処理を記述できる
 
+## lint
 `eslint`
 
 ```shell
@@ -37,5 +39,29 @@ module.exports = {
   rules: {
     "no-console": false
   }
+}
+```
+
+.eslintignore
+
+```
+node_modules
+dist
+```
+
+## Test
+
+```shell
+npm install -D jest \
+  @types/jest \
+  ts-jest
+```
+
+jest.config.js
+
+```js
+module.exports = {
+  "roots": ["src"],
+  "transform": { "^.+\\.txt?$": "ts-jest" }
 }
 ```

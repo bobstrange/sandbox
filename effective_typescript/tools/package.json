@@ -4,17 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
     "start": "tsc-watch --onsuccess \"node dist/index.js\""
   },
   "keywords": [],
   "author": "bobStrange <bob.is.strange.1983@gmail.com> (https://github.com/bob1983)",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^24.9.1",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.17.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
+    "ts-jest": "^25.0.0",
     "tsc-watch": "^4.1.0",
     "typescript": "^3.7.5"
   }
