@@ -17,12 +17,28 @@ const puppeteer = require('puppeteer');
   const nameText = await (await nameElement.getProperty('title')).jsonValue()
 
   const sizeElement = itemColumns[3]
+  // TODO: parse size
   const size = await (await sizeElement.getProperty('textContent')).jsonValue()
+
+  const dateElement = itemColumns[4]
+  // TODO: parse dateTime
+  const dateTime = await (await dateElement.getProperty('textContent')).jsonValue()
+
+  const seedersElement = itemColumns[5]
+  const seeders = await (await seedersElement.getProperty('textContent')).jsonValue()
+  const leechersElement = itemColumns[6]
+  const leechers = await (await leechersElement.getProperty('textContent')).jsonValue()
+  const completedDownloadsElement = itemColumns[7]
+  const completedDownloads = await (await completedDownloadsElement.getProperty('textContent')).jsonValue()
 
   console.log(categoryLink)
   console.log(nameLink)
   console.log(nameText)
   console.log(size)
+  console.log(dateTime)
+  console.log(seeders)
+  console.log(leechers)
+  console.log(completedDownloads)
 
   await page.close()
   await browser.close()
