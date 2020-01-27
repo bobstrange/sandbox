@@ -16,9 +16,13 @@ const puppeteer = require('puppeteer');
   const nameLink = await (await nameElement.getProperty('href')).jsonValue()
   const nameText = await (await nameElement.getProperty('title')).jsonValue()
 
+  const sizeElement = itemColumns[3]
+  const size = await (await sizeElement.getProperty('textContent')).jsonValue()
+
   console.log(categoryLink)
   console.log(nameLink)
   console.log(nameText)
+  console.log(size)
 
   await page.close()
   await browser.close()
