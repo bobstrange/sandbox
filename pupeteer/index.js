@@ -7,38 +7,46 @@ const puppeteer = require('puppeteer');
   const url = process.env.URL
   const page = await browser.newPage()
   await page.goto(url)
-
   const items = await page.$$('tr.default')
-  const itemColumns = await items[0].$$('td')
-  const categoryElement = await itemColumns[0].$('a')
-  const categoryLink = await (await categoryElement.getProperty('href')).jsonValue()
-  const nameElement = await itemColumns[1].$('td > a')
-  const nameLink = await (await nameElement.getProperty('href')).jsonValue()
-  const nameText = await (await nameElement.getProperty('title')).jsonValue()
+  const data = await Promise.all(
+    items.map(
+      async (item) => {
+        const itemColumns = await item.$$('td')
+        const categoryElement = await itemColumns[0].$('a')
+        const categoryLink = await (await categoryElement.getProperty('href')).jsonValue()
+        const nameElement = await itemColumns[1].$('td > a')
+        const nameLink = await (await nameElement.getProperty('href')).jsonValue()
+        const nameText = await (await nameElement.getProperty('title')).jsonValue()
 
-  const sizeElement = itemColumns[3]
-  // TODO: parse size
-  const size = await (await sizeElement.getProperty('textContent')).jsonValue()
+        const sizeElement = itemColumns[3]
+        // TODO: parse size
+        const size = await (await sizeElement.getProperty('textContent')).jsonValue()
 
-  const dateElement = itemColumns[4]
-  // TODO: parse dateTime
-  const dateTime = await (await dateElement.getProperty('textContent')).jsonValue()
+        const dateElement = itemColumns[4]
+        // TODO: parse dateTime
+        const createdAt = await (await dateElement.getProperty('textContent')).jsonValue()
 
-  const seedersElement = itemColumns[5]
-  const seeders = await (await seedersElement.getProperty('textContent')).jsonValue()
-  const leechersElement = itemColumns[6]
-  const leechers = await (await leechersElement.getProperty('textContent')).jsonValue()
-  const completedDownloadsElement = itemColumns[7]
-  const completedDownloads = await (await completedDownloadsElement.getProperty('textContent')).jsonValue()
+        const seedersElement = itemColumns[5]
+        const seeders = await (await seedersElement.getProperty('textContent')).jsonValue()
+        const leechersElement = itemColumns[6]
+        const leechers = await (await leechersElement.getProperty('textContent')).jsonValue()
+        const completedDownloadsElement = itemColumns[7]
+        const completedDownloads = await (await completedDownloadsElement.getProperty('textContent')).jsonValue()
+        return {
+          categoryLink,
+          nameLink,
+          nameText,
+          size,
+          createdAt,
+          seeders,
+          leechers,
+          completedDownloads
+        }
+      }
+    )
+  )
 
-  console.log(categoryLink)
-  console.log(nameLink)
-  console.log(nameText)
-  console.log(size)
-  console.log(dateTime)
-  console.log(seeders)
-  console.log(leechers)
-  console.log(completedDownloads)
+  console.log(data)
 
   await page.close()
   await browser.close()
