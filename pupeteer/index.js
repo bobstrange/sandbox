@@ -14,6 +14,7 @@ const puppeteer = require('puppeteer');
         const itemColumns = await item.$$('td')
         const categoryElement = await itemColumns[0].$('a')
         const categoryLink = await (await categoryElement.getProperty('href')).jsonValue()
+        const category = new URL(categoryLink).search.replace(/\?c\=/, '')
         const nameElement = await itemColumns[1].$('td > a')
         const nameLink = await (await nameElement.getProperty('href')).jsonValue()
         const nameText = await (await nameElement.getProperty('title')).jsonValue()
@@ -33,7 +34,7 @@ const puppeteer = require('puppeteer');
         const completedDownloadsElement = itemColumns[7]
         const completedDownloads = await (await completedDownloadsElement.getProperty('textContent')).jsonValue()
         return {
-          categoryLink,
+          category,
           nameLink,
           nameText,
           size,
