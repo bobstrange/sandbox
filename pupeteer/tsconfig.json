@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "lib": [
+      "DOM",
+      "ES2015"
+    ],
+    "strict": true
+  },
+  "include": ["src"]
+}

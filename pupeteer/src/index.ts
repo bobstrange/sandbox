@@ -1,11 +1,12 @@
-const puppeteer = require('puppeteer');
-const dayjs = require('dayjs');
+// const puppeteer = require('puppeteer');
+import Puppeteer from 'puppeteer'
+import DayJS from 'dayjs'
 
 (async () => {
-  const browser = await puppeteer.launch(
+  const browser = await Puppeteer.launch(
     { headless: true }
   )
-  const url = process.env.URL
+  const url = process.env.URL || ''
   const page = await browser.newPage()
   await page.goto(url)
   const items = await page.$$('tr.default')
@@ -14,11 +15,11 @@ const dayjs = require('dayjs');
       async (item) => {
         const itemColumns = await item.$$('td')
         const categoryElement = await itemColumns[0].$('a')
-        const categoryLink = await (await categoryElement.getProperty('href')).jsonValue()
-        const category = new URL(categoryLink).search.replace(/\?c\=/, '')
+        const categoryLink = categoryElement && await (await categoryElement.getProperty('href')).jsonValue()
+        const category = typeof categoryLink === 'string' && new URL(categoryLink).search.replace(/\?c\=/, '')
         const nameElement = await itemColumns[1].$('td > a')
-        const nameLink = await (await nameElement.getProperty('href')).jsonValue()
-        const nameText = await (await nameElement.getProperty('title')).jsonValue()
+        const nameLink = nameElement && await (await nameElement.getProperty('href')).jsonValue()
+        const nameText = nameElement && await (await nameElement.getProperty('title')).jsonValue()
 
         const sizeElement = itemColumns[3]
 
@@ -26,7 +27,7 @@ const dayjs = require('dayjs');
 
         const dateElement = itemColumns[4]
         const createdAt = await (await dateElement.getProperty('textContent')).jsonValue()
-        const created = dayjs(createdAt)
+        const created = typeof createdAt === 'string' && DayJS(createdAt).format()
         const seedersElement = itemColumns[5]
         const seeders = Number(await (await seedersElement.getProperty('textContent')).jsonValue())
         const leechersElement = itemColumns[6]
