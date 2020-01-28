@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const dayjs = require('dayjs');
 
 (async () => {
   const browser = await puppeteer.launch(
@@ -26,7 +27,7 @@ const puppeteer = require('puppeteer');
         const dateElement = itemColumns[4]
         // TODO: parse dateTime
         const createdAt = await (await dateElement.getProperty('textContent')).jsonValue()
-
+        const created = dayjs(createdAt)
         const seedersElement = itemColumns[5]
         const seeders = await (await seedersElement.getProperty('textContent')).jsonValue()
         const leechersElement = itemColumns[6]
@@ -38,7 +39,7 @@ const puppeteer = require('puppeteer');
           nameLink,
           nameText,
           size,
-          createdAt,
+          created,
           seeders,
           leechers,
           completedDownloads
