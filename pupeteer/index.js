@@ -21,19 +21,18 @@ const dayjs = require('dayjs');
         const nameText = await (await nameElement.getProperty('title')).jsonValue()
 
         const sizeElement = itemColumns[3]
-        // TODO: parse size
+
         const size = await (await sizeElement.getProperty('textContent')).jsonValue()
 
         const dateElement = itemColumns[4]
-        // TODO: parse dateTime
         const createdAt = await (await dateElement.getProperty('textContent')).jsonValue()
         const created = dayjs(createdAt)
         const seedersElement = itemColumns[5]
-        const seeders = await (await seedersElement.getProperty('textContent')).jsonValue()
+        const seeders = Number(await (await seedersElement.getProperty('textContent')).jsonValue())
         const leechersElement = itemColumns[6]
-        const leechers = await (await leechersElement.getProperty('textContent')).jsonValue()
+        const leechers = Number(await (await leechersElement.getProperty('textContent')).jsonValue())
         const completedDownloadsElement = itemColumns[7]
-        const completedDownloads = await (await completedDownloadsElement.getProperty('textContent')).jsonValue()
+        const completedDownloads = Number(await (await completedDownloadsElement.getProperty('textContent')).jsonValue())
         return {
           category,
           nameLink,
