@@ -3,6 +3,6 @@
     "module": "CommonJS",
     "esModuleInterop":  true,
     "moduleResolution": "node",
-    "lib": ["dom", "ES2015"]
+    "lib": ["dom", "WebWorker", "ES2015"]
   }
 }
