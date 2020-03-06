@@ -3,7 +3,7 @@ Docker example using nodejs web app.
 
 ## run
 ```shell
-docker run bobstrange/server
+docker run -p 8080:8080 bobstrange/server
 ```
 
 ## build
