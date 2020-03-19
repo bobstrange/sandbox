@@ -12,6 +12,7 @@ terraform {
     region = "ap-northeast-1"
   }
 }
+
 resource "aws_security_group" "test_ecs" {
   name        = "test_ecs"
   description = "Security group for ECS testing"
@@ -60,4 +61,8 @@ resource "aws_security_group" "test_ecs" {
   tags = {
     Name = "Security group for ECS testing"
   }
+}
+
+resource "aws_ecs_cluster" "foo" {
+  name = "test-ecs"
 }
