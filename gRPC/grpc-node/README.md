@@ -21,3 +21,4 @@ npx grpc_tools_node_protoc -I=. ./proto/dummy.proto \
   --plugin=protoc-gen-grpc=node_modules/.bin/grpc_tools_node_protoc_plugin
 ```
 
+
