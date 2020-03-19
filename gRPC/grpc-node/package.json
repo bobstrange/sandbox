@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server:start": "node server/index.js",
-    "client:start": "node client/index.js"
+    "server:watch": "nodemon server/index.js",
+    "client:start": "node client/index.js",
+    "client:watch": "nodemon client/index.js"
   },
   "keywords": [],
   "author": "bobStrange <bob.is.strange.1983@gmail.com> (https://github.com/bob1983)",
@@ -14,5 +16,8 @@
     "google-protobuf": "^3.11.4",
     "grpc": "^1.24.2",
     "grpc-tools": "^1.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
