@@ -1,5 +1,7 @@
 variable "ssh_allowed_cidr" {}
 variable "region" { default = "ap-northeast-1" }
+variable "ami_id" { default = "ami-00c408a8b71d5c614" }
+variable "key_pair_name" { default = "bob-key" }
 
 provider "aws" {
   version = "~> 2.0"
@@ -65,4 +67,27 @@ resource "aws_security_group" "test_ecs" {
 
 resource "aws_ecs_cluster" "foo" {
   name = "test-ecs"
+}
+
+resource "aws_s3_bucket" "bob_ecs_test_bucket" {
+  bucket = "bob-ecs-test-bucket"
+  acl    = "private"
+
+  tags = {
+    Name        = "ecs_test_bucket"
+    Environment = "Dev"
+  }
+}
+
+resource "aws_instance" "ecs_test_instance" {
+  ami                    = var.ami_id
+  instance_type          = "t2.micro"
+  iam_instance_profile   = "ecsInstanceRole"
+  key_name               = var.key_pair_name
+  vpc_security_group_ids = [aws_security_group.test_ecs.id]
+
+  user_data = file("scripts/copy-ecs-config-to-s3")
+  tags = {
+    Name = "Test EC2 instance"
+  }
 }
