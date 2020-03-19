@@ -1,11 +1,17 @@
 variable "ssh_allowed_cidr" {}
+variable "region" { default = "ap-northeast-1" }
 
 provider "aws" {
   version = "~> 2.0"
-  region  = "ap-northeast-1"
-  profile = "bob"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "bobstrange.tfstate"
+    key    = "test-ecs.tfstate"
+    region = "ap-northeast-1"
+  }
+}
 resource "aws_security_group" "test_ecs" {
   name        = "test_ecs"
   description = "Security group for ECS testing"
