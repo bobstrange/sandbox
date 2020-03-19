@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server:start": "node server/index.js",
+    "client:start": "node client/index.js"
   },
   "keywords": [],
   "author": "bobStrange <bob.is.strange.1983@gmail.com> (https://github.com/bob1983)",
   "license": "MIT",
   "dependencies": {
     "google-protobuf": "^3.11.4",
+    "grpc": "^1.24.2",
     "grpc-tools": "^1.8.1"
   }
 }
