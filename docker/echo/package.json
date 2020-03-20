@@ -1,0 +1,21 @@
+{
+  "name": "echo",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc -w"
+  },
+  "keywords": [],
+  "author": "bobStrange <bob.is.strange.1983@gmail.com> (https://github.com/bob1983)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.3",
+    "@types/node": "^13.9.2",
+    "typescript": "^3.8.3"
+  }
+}
