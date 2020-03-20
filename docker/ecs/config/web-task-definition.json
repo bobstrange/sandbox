@@ -1,7 +1,7 @@
 [
   {
     "name": "nginx",
-    "image": "nginx",
+    "image": "844274499765.dkr.ecr.ap-northeast-1.amazonaws.com/test-ecs/nginx:1.17",
     "portMappings": [
       {
         "containerPort": 80,

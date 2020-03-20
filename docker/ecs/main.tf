@@ -101,5 +101,14 @@ resource "aws_ecs_service" "test_ecs" {
   name            = "web"
   cluster         = aws_ecs_cluster.foo.id
   task_definition = aws_ecs_task_definition.test_ecs.arn
-  desired_count   = 1
+  desired_count   = 0
+}
+
+resource "aws_ecr_repository" "test_ecs" {
+  name                 = "test-ecs/nginx"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
 }
