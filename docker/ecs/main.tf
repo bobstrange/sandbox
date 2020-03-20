@@ -91,3 +91,8 @@ resource "aws_instance" "ecs_test_instance" {
     Name = "Test EC2 instance"
   }
 }
+
+resource "aws_ecs_task_definition" "test_ecs" {
+  family                = "service"
+  container_definitions = file("config/web-task-definition.json")
+}
