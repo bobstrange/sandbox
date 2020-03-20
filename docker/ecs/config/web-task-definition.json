@@ -1,19 +1,14 @@
 [
   {
-    "containerDefinitions": [
+    "name": "nginx",
+    "image": "nginx",
+    "portMappings": [
       {
-        "name": "nginx",
-        "image": "nginx",
-        "portMappings": [
-          {
-            "containerPort": 80,
-            "hostPort": 80
-          }
-        ],
-        "memory": 50,
-        "cpu": 102
+        "containerPort": 80,
+        "hostPort": 80
       }
     ],
-    "family": "web"
+    "memory": 50,
+    "cpu": 102
   }
 ]
