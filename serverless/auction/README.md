@@ -20,4 +20,8 @@ npx sls invoke local -f <function-name>
 
 ```shell
 npx sls deploy --stage prod
+
+# Deploy a certain function
+sls deploy -f createAuction -v
+
 ```
