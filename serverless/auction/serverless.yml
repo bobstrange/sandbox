@@ -13,6 +13,7 @@ provider:
   runtime: nodejs12.x
   memorySize: 256
   stage: ${opt:stage, 'dev'}
+  region: ap-northeast-1
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
@@ -23,5 +24,5 @@ functions:
     handler: src/handlers/hello.handler
     events:
       - http:
-          method:
+          method: GET
           path: /hello
