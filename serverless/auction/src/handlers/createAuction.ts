@@ -17,7 +17,7 @@ const createAuction: APIGatewayProxyHandler = async (event, _context) => {
   }
 
   await dynamodb.put({
-    TableName: 'AuctionsTable',
+    TableName: process.env.AUCTIONS_TABLE_NAME,
     Item: auction
   }).promise()
 
@@ -26,5 +26,4 @@ const createAuction: APIGatewayProxyHandler = async (event, _context) => {
     body: JSON.stringify(auction)
   }
 }
-
 export const handler = createAuction

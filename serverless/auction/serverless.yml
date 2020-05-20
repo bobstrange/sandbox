@@ -1,9 +1,14 @@
 service:
   name: auction
+
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
+  AuctionsTable:
+    name: !Ref AuctionsTable
+    arn:  !GetAtt AuctionsTable.Arn
+
 plugins:
   - serverless-webpack
   - serverless-pseudo-parameters
@@ -20,6 +25,7 @@ provider:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
 
 resources:
   Resources:
