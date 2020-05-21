@@ -11,17 +11,25 @@ type SetBodyToType<A extends object, B extends object> = Assign<A, Record<"body"
 const dynamodb = new DynamoDB.DocumentClient()
 
 const createAuction: Handler<
-  SetBodyToType<APIGatewayProxyEvent, { title: string }>,
+  SetBodyToType<APIGatewayProxyEvent, { title?: string }>,
   APIGatewayProxyResult
 > = async (event, _context) => {
   const { title } = event.body
+
+  if (!title) {
+    throw new createError.BadRequest(`${title} is required`)
+  }
+
   const now = new Date()
 
   const auction = {
     id: uuid(),
     title,
     status: 'OPEN',
-    createdAt: now.toISOString()
+    createdAt: now.toISOString(),
+    highestBid: {
+      amount: 0
+    }
   }
 
   try {
