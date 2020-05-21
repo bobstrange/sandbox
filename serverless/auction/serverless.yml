@@ -30,6 +30,7 @@ provider:
 resources:
   Resources:
     AuctionsTable: ${file(resources/AuctionsTable.yml):AuctionsTable}
+
 functions:
   createAuction:
     handler: src/handlers/createAuction.handler
@@ -37,3 +38,9 @@ functions:
       - http:
           method: POST
           path: /auction
+  getAuctions:
+    handler: src/handlers/getAuctions.handler
+    events:
+      - http:
+          method: GET
+          path: /auctions
