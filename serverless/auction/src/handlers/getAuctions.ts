@@ -1,7 +1,4 @@
 import {
-  APIGatewayProxyEvent,
-  Handler,
-  APIGatewayProxyResult,
   APIGatewayProxyHandler,
 } from "aws-lambda";
 import "source-map-support/register";
