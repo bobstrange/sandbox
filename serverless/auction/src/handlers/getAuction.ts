@@ -4,12 +4,12 @@ import { DynamoDB } from "aws-sdk";
 import commonMiddleware from '../lib/commonMiddleware'
 
 import createError from "http-errors";
+import { AttributeMap } from "aws-sdk/clients/dynamodb";
 
 const dynamodb = new DynamoDB.DocumentClient();
 
-const getAuction: APIGatewayProxyHandler = async (event, _context) => {
-  let auction;
-  const { id } = event.pathParameters
+export const getAuctionById = async (id: string): Promise<AttributeMap> => {
+  let auction
 
   try {
     const result = await dynamodb.get({
@@ -25,6 +25,13 @@ const getAuction: APIGatewayProxyHandler = async (event, _context) => {
   if (!auction) {
     throw new createError.NotFound(`Auction with ID: "${id}" not found`)
   }
+
+  return auction
+}
+
+const getAuction: APIGatewayProxyHandler = async (event, _context) => {
+  const { id } = event.pathParameters
+  const auction = await getAuctionById(id)
 
   return {
     statusCode: 200,
