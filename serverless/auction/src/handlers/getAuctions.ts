@@ -9,7 +9,9 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 
 const dynamodb = new DynamoDB.DocumentClient();
 
-const getAuctions: APIGatewayProxyHandler = async (_event, _context) => {
+const getAuctions: APIGatewayProxyHandler = async (event, _context) => {
+  const { status } = event.queryStringParameters
+
   let auctions
 
   const params: DocumentClient.QueryInput = {
@@ -17,7 +19,7 @@ const getAuctions: APIGatewayProxyHandler = async (_event, _context) => {
     IndexName: "statusAndEndDate",
     KeyConditionExpression: "#status = :status",
     ExpressionAttributeValues: {
-      ":status": "OPEN",
+      ":status": status,
     },
     ExpressionAttributeNames: {
       "#status": "status",
