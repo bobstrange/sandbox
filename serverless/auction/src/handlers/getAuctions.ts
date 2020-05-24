@@ -10,8 +10,6 @@ import validator from '@middy/validator'
 
 const dynamodb = new DynamoDB.DocumentClient();
 
-
-
 const getAuctions: APIGatewayProxyHandler = async (event, _context) => {
   const { status } = event.queryStringParameters
 

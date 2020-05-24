@@ -5,6 +5,7 @@ import { DynamoDB } from 'aws-sdk'
 import commonMiddleware from "../lib/commonMiddleware";
 import createError from 'http-errors'
 import { Assign } from 'utility-types'
+import validator from '@middy/validator';
 
 type SetBodyToType<A extends object, B extends object> = Assign<A, Record<"body", B>>
 
@@ -50,4 +51,25 @@ const createAuction: Handler<
     body: JSON.stringify(auction)
   }
 }
+
+const createAuctionSchema = {
+  properties: {
+    body: {
+      type: "object",
+      properties: {
+        title: {
+          type: "string"
+        },
+      },
+      required: ["title"]
+    },
+  },
+  required: ["body"],
+}
+
 export const handler = commonMiddleware(createAuction)
+  .use(
+    validator({
+      inputSchema: createAuctionSchema,
+    })
+  )
