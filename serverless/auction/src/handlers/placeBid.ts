@@ -5,6 +5,7 @@ import commonMiddleware from "../lib/commonMiddleware";
 import createError from "http-errors";
 import { Assign } from 'utility-types'
 import { getAuctionById } from "./getAuction";
+import validator from '@middy/validator';
 
 type SetBodyToType<A extends object, B extends object> = Assign<A, Record<"body", B>>
 
@@ -52,4 +53,25 @@ const placeBid: Handler<
   };
 };
 
-export const handler = commonMiddleware(placeBid);
+const placeBidSchema = {
+  properties: {
+    body: {
+      type: 'object',
+      properties: {
+        amount: {
+          type: 'number',
+        }
+      },
+      required: ['amount']
+    }
+  },
+  required: ['body']
+}
+
+export const handler = commonMiddleware(placeBid)
+  .use(
+    validator({
+      inputSchema: placeBidSchema
+    })
+  )
+
