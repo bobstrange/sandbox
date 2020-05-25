@@ -2,6 +2,7 @@ service:
   name: auction
 
 custom:
+  authorizer: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
@@ -38,6 +39,7 @@ functions:
       - http:
           method: POST
           path: /auction
+          authorizer: ${self:custom.authorizer}
 
   getAuctions:
     handler: src/handlers/getAuctions.handler
@@ -45,6 +47,7 @@ functions:
       - http:
           method: GET
           path: /auctions
+          authorizer: ${self:custom.authorizer}
 
   getAuction:
     handler: src/handlers/getAuction.handler
@@ -52,6 +55,7 @@ functions:
       - http:
           method: GET
           path: /auctions/{id}
+          authorizer: ${self:custom.authorizer}
 
   placeBid:
     handler: src/handlers/placeBid.handler
@@ -59,6 +63,8 @@ functions:
       - http:
           method: PATCH
           path: auction/{id}/bid
+          authorizer: ${self:custom.authorizer}
+
   processAuctions:
     handler: src/handlers/processAuctions.handler
     # events:
