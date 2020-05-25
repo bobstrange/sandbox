@@ -16,6 +16,7 @@ const createAuction: Handler<
   APIGatewayProxyResult
 > = async (event, _context) => {
   const { title } = event.body
+  const { email } = event.requestContext.authorizer
 
   if (!title) {
     throw new createError.BadRequest(`${title} is required`)
@@ -33,7 +34,8 @@ const createAuction: Handler<
     endingAt: endDate.toISOString(),
     highestBid: {
       amount: 0
-    }
+    },
+    seller: email
   }
 
   try {

@@ -17,6 +17,7 @@ const placeBid: Handler<
 > = async (event, _context) => {
   const { id } = event.pathParameters
   const { amount } = event.body
+  const { email } = event.requestContext.authorizer
 
   const auction = await getAuctionById(id);
 
@@ -35,9 +36,10 @@ const placeBid: Handler<
     const result = await dynamodb.update({
       TableName: process.env.AUCTIONS_TABLE_NAME,
       Key: { id },
-      UpdateExpression: 'set highestBid.amount = :amount',
+      UpdateExpression: 'set highestBid.amount = :amount, highestBid.bidder = :bidder',
       ExpressionAttributeValues: {
-        ':amount': amount
+        ':amount': amount,
+        ':bidder': email
       },
       ReturnValues: 'ALL_NEW'
     }).promise()
