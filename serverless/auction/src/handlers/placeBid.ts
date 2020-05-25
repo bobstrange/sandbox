@@ -21,6 +21,14 @@ const placeBid: Handler<
 
   const auction = await getAuctionById(id);
 
+  if (email === auction.seller) {
+    throw new createError.Forbidden('You cannot bid on your own auctions!')
+  }
+
+  if (email === auction.highestBid.bidder) {
+    throw new createError.Forbidden('Your are already the highest bidder!')
+  }
+
   if (auction.status !== 'OPEN') {
     throw new createError.Forbidden('You cannot bid on closed auctions!')
   }
