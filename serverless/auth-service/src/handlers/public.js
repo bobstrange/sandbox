@@ -1,4 +1,4 @@
-export async function handler(event, context) {
+export async function handler(_event, _context) {
   return {
     statusCode: 200,
     headers: {
@@ -8,7 +8,7 @@ export async function handler(event, context) {
       'Access-Control-Allow-Credentials': true,
     },
     body: JSON.stringify({
-      message: 'Hi ⊂◉‿◉つ from Public API',
+      message: 'Hi from Public API',
     }),
   };
 }
