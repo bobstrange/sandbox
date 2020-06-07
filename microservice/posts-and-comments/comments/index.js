@@ -37,7 +37,27 @@ app.post('/posts/:id/comments', async (req, res) => {
 })
 
 app.post('/events', (req, res) => {
-  console.log(`Received event: ${req.body.type}`)
+  const { type, data } = req.body
+
+  if (type === 'CommentModerated') {
+    const { id, postId, status, content } = data
+    const comments = commentsByPostId[postId]
+    const comment = comments.find(_ => {
+      return _.id === id
+    })
+    comment.status = status
+
+    axios.post('http://localhost:8085/events', {
+      type: 'CommentUpdated',
+      data: {
+        id,
+        content,
+        postId,
+        status
+      }
+    })
+  }
+
   res.send({})
 })
 
