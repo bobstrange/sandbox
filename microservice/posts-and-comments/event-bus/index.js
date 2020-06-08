@@ -12,10 +12,10 @@ app.post('/events', (req, res) => {
 
   events.push(event)
 
-  axios.post('http://localhost:8080/events', event)
-  axios.post('http://localhost:8081/events', event)
-  axios.post('http://localhost:8082/events', event)
-  axios.post('http://localhost:8083/events', event)
+  axios.post("http://posts-cluster-ip-srv:8080/events", event);
+  // axios.post('http://localhost:8081/events', event)
+  // axios.post('http://localhost:8082/events', event)
+  // axios.post('http://localhost:8083/events', event)
 
   res.send({ status: 'OK' })
 })
