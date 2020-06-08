@@ -28,7 +28,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   comments.push(comment)
   commentsByPostId[req.params.id] = comments
 
-  await axios.post('http://localhost:8085/events', {
+  await axios.post('http://event-bus-cluster-ip-srv:8085/events', {
     type: 'CommentCreated',
     data: { ...comment, postId: req.params.id }
   })
@@ -47,7 +47,7 @@ app.post('/events', (req, res) => {
     })
     comment.status = status
 
-    axios.post('http://localhost:8085/events', {
+    axios.post('http://event-bus-cluster-ip-srv:8085/events', {
       type: 'CommentUpdated',
       data: {
         id,

@@ -46,7 +46,7 @@ app.post('/events', (req, res) => {
 app.listen(8082, async () => {
   console.log('Listening on port 8082')
 
-  const res = await axios.get('http://localhost:8085/events')
+  const res = await axios.get('http://event-bus-cluster-ip-srv:8085/events')
 
   for (let { type, data } of res.data) {
     handleEvent(type, data)

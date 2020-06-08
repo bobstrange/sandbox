@@ -11,7 +11,7 @@ export default () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post("http://localhost:8080/posts", {
+    await axios.post("http://posts-cluster-ip-srv:8080/posts", {
       title,
     });
 
