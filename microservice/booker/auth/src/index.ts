@@ -1,4 +1,5 @@
 import express from 'express'
+import 'express-async-errors'
 import { json } from 'body-parser'
 
 import { signinRouter } from './routes/signin'
@@ -17,7 +18,7 @@ app.use(signoutRouter)
 app.use(signupRouter)
 app.use(currentUserRouter)
 
-app.use(() => {
+app.all('*', async () => {
   throw new NotFoundError()
 })
 
@@ -27,4 +28,3 @@ app.listen(8080, () => {
   console.log('Listening on port 8080')
   console.log('hi there')
 })
-
