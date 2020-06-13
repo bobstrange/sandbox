@@ -12,7 +12,7 @@ router.post('/api/users/signup', validations, (req: Request, res: Response) => {
   const errors = validationResult(req)
 
   if (!errors.isEmpty()) {
-    return res.status(400).send(errors.array())
+    throw new Error('Invalid email ror password')
   }
 
   const { email, password } = req.body
