@@ -1,6 +1,7 @@
 import express from 'express'
 import 'express-async-errors'
 import { json } from 'body-parser'
+import mongoose from 'mongoose'
 
 import { signinRouter } from './routes/signin'
 import { signoutRouter } from './routes/signout'
@@ -24,7 +25,23 @@ app.all('*', async () => {
 
 app.use(errorHandler)
 
-app.listen(8080, () => {
-  console.log('Listening on port 8080')
-  console.log('hi there')
-})
+const start = async () => {
+  try {
+   await mongoose.connect(
+      'mongodb://auth-mongo-srv:27017/auth', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+      }
+    )
+    console.log('Connected to mongo')
+  } catch (error) {
+    console.error(error)
+  }
+
+  app.listen(8080, () => {
+    console.log('Listening on port 8080')
+  })
+}
+
+start()
