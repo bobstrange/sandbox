@@ -36,6 +36,7 @@ router.post('/api/users/signup', validations, async (req: Request, res: Response
     email: user.email
   }, 'tmpkeyfornow')
 
+  // @ts-ignore
   req.session = {
     jwt: userJwt
   }
