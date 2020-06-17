@@ -31,10 +31,13 @@ router.post('/api/users/signup', validations, async (req: Request, res: Response
   const user = User.build({ email, password })
   await user.save()
 
-  const userJwt = jwt.sign({
-    id: user.id,
-    email: user.email
-  }, 'tmpkeyfornow')
+  const userJwt = jwt.sign(
+    {
+      id: user.id,
+      email: user.email
+    },
+    process.env.JWT_KEY!
+  )
 
   // @ts-ignore
   req.session = {
