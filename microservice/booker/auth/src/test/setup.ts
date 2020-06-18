@@ -5,6 +5,8 @@ import { app } from '../app'
 let mongo: MongoMemoryServer
 
 beforeAll(async () => {
+  process.env.JWT_KEY = 'asdfasdf'
+
   mongo = new MongoMemoryServer()
   const mongoUri = await mongo.getUri()
   await mongoose.connect(
