@@ -6,6 +6,7 @@ export default ({ url, method, body }) => {
 
   const executeRequest = async () => {
     try {
+      setErrors(null)
       const response = await axios[method](url, body)
       return response.data
     } catch (error) {
