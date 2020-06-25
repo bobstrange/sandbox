@@ -1,13 +1,15 @@
-import { useState } from "react"
-import useRequest from "../../hooks/use-request"
+import { useState } from 'react'
+import Router from 'next/router'
+import useRequest from '../../hooks/use-request'
 
 export default () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const { executeRequest, errors } = useRequest({
-    url: "/api/users/signup",
-    method: "post",
+    url: '/api/users/signup',
+    method: 'post',
     body: { email, password },
+    onSuccess: () => Router.push('/'),
   })
 
   const onSubmit = async (e) => {

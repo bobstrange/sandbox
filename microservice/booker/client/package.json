@@ -17,6 +17,7 @@
     "react-dom": "^16.13.1"
   },
   "prettier": {
-    "semi": false
+    "semi": false,
+    "singleQuote": true
   }
 }
