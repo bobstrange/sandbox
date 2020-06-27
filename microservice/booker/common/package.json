@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "del ./dist/*",
+    "build": "npm run clean && tsc"
   },
   "keywords": [],
   "author": "bobstrange <bob.1983.g@gmail.com> (https://github.com/bobstrange)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "typescript": "^3.9.5"
+  }
 }
