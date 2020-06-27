@@ -7,7 +7,7 @@ describe('signinRouter', () => {
       .post('/api/users/signin')
       .send({
         email: 'test@test.com',
-        password: 'password'
+        password: 'password',
       })
       .expect(400)
   })
@@ -17,14 +17,14 @@ describe('signinRouter', () => {
       .post('/api/users/signup')
       .send({
         email: 'test@test.com',
-        password: 'password'
+        password: 'password',
       })
       .expect(201)
     await request(app)
       .post('/api/users/signin')
       .send({
         email: 'test@test.com',
-        password: 'incorrect-password'
+        password: 'incorrect-password',
       })
       .expect(400)
   })
@@ -34,14 +34,14 @@ describe('signinRouter', () => {
       .post('/api/users/signup')
       .send({
         email: 'test@test.com',
-        password: 'password'
+        password: 'password',
       })
       .expect(201)
     const response = await request(app)
       .post('/api/users/signin')
       .send({
         email: 'test@test.com',
-        password: 'password'
+        password: 'password',
       })
       .expect(200)
 

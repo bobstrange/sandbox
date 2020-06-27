@@ -1,39 +1,38 @@
-import express, { Request, Response } from "express";
-import { body } from "express-validator";
-import jwt from "jsonwebtoken";
+import express, { Request, Response } from 'express'
+import { body } from 'express-validator'
+import jwt from 'jsonwebtoken'
+import { validateRequest, BadRequestError } from '@bsbooker/common'
 
-import { validateRequest } from "../../../common/src/middlewares/validate-request";
-import { User } from "../models/user";
-import { BadRequestError } from "../../../common/src/errors/bad-request-error";
-import { PasswordManager } from "../services/password-manager";
+import { User } from '../models/user'
+import { PasswordManager } from '../services/password-manager'
 
-const router = express.Router();
+const router = express.Router()
 
 const validations = [
-  body("email").isEmail().withMessage("Email must be valid"),
-  body("password").trim().notEmpty().withMessage("You must supply a password"),
-];
+  body('email').isEmail().withMessage('Email must be valid'),
+  body('password').trim().notEmpty().withMessage('You must supply a password'),
+]
 
 router.post(
-  "/api/users/signin",
+  '/api/users/signin',
   validations,
   validateRequest,
   async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email })
 
     if (!existingUser) {
-      throw new BadRequestError("Invalid credentials");
+      throw new BadRequestError('Invalid credentials')
     }
 
     const passwordMatch = await PasswordManager.compare(
       existingUser.password,
       password
-    );
+    )
 
     if (!passwordMatch) {
-      throw new BadRequestError("Invalid credentials");
+      throw new BadRequestError('Invalid credentials')
     }
 
     const userJwt = jwt.sign(
@@ -42,15 +41,15 @@ router.post(
         email: existingUser.email,
       },
       process.env.JWT_KEY!
-    );
+    )
 
     // @ts-ignore
     req.session = {
       jwt: userJwt,
-    };
+    }
 
-    res.status(200).send(existingUser);
+    res.status(200).send(existingUser)
   }
-);
+)
 
-export { router as signinRouter };
+export { router as signinRouter }
