@@ -1,8 +1,12 @@
 {
   "name": "@bsbooker/common",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "clean": "del ./dist/*",
     "build": "npm run clean && tsc"
