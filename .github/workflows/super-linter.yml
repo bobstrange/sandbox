@@ -2,7 +2,6 @@ name: Super-Linter
 on: push
 jobs:
   super-lint:
-    name: Lint code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
