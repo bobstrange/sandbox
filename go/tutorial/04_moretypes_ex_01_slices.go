@@ -5,7 +5,7 @@ import (
 )
 
 func getValue(x, y int) uint8 {
-	return uint8((x+y) / 2)
+	return uint8((x + y) / 2)
 }
 
 func Pic(dx, dy int) [][]uint8 {
@@ -17,11 +17,11 @@ func Pic(dx, dy int) [][]uint8 {
 	for i := range s {
 		for j := range s[i] {
 			switch {
-			case j % 15 == 0:
+			case j%15 == 0:
 				s[i][j] = 255
-			case j % 5 == 0:
+			case j%5 == 0:
 				s[i][j] = 0
-			case j % 3 == 0:
+			case j%3 == 0:
 				s[i][j] = 255
 			default:
 				s[i][j] = 50
