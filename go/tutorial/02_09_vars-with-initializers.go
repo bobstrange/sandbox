@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 
-
 var i, j int = 1, 2
 var k = 5
 
