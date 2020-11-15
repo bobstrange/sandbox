@@ -11,6 +11,7 @@ type Response1 struct {
 }
 
 type Response2 struct {
+	// Tag 付けして JSON のキー名のマッピング
 	Page   int      `json:"page"`
 	Fruits []string `json:"fruits"`
 }
@@ -40,6 +41,27 @@ func main() {
 
 	response2Json, _ := json.Marshal(&Response2{Page: 1, Fruits: []string{"apple", "banana", "orange"}})
 	fmt.Println(string(response2Json))
+	// JSON のキー名のマッピング
 	// {"page":1,"fruits":["apple","banana","orange"]}
 
+	// JSON data のデコード
+	byteData := []byte(`{"num":6.13,"strs":["a","b"]}`)
+
+	// 何でも入る map を用意
+	var data map[string]interface{}
+
+	if err := json.Unmarshal(byteData, &data); err != nil {
+		panic(err)
+	}
+	fmt.Println(data)
+
+	// interface の型アサーションで型を確定させる
+	num := data["num"].(float64)
+	fmt.Println(num)
+
+	// 空インターフェースで型アサーション
+	strs := data["strs"].([]interface{})
+	// 内部で再度型アサーション
+	str1 := strs[0].(string)
+	fmt.Println(str1)
 }
