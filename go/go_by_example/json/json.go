@@ -64,4 +64,7 @@ func main() {
 	// 内部で再度型アサーション
 	str1 := strs[0].(string)
 	fmt.Println(str1)
+
+	// json についての詳細は
+	// https://blog.golang.org/json
 }
