@@ -13,6 +13,6 @@ func main() {
 
 	// ※ バッファのサイズより多くの値を送信しようとすると、fatal error が起きる
 
-	fmt.Println(<- messages)
-	fmt.Println(<- messages)
+	fmt.Println(<-messages)
+	fmt.Println(<-messages)
 }

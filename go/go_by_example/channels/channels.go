@@ -12,7 +12,7 @@ func main() {
 	go func() { messages <- "ping" }()
 
 	// <- channel で、チャンネルから値を受け取る
-	msg := <- messages
+	msg := <-messages
 	fmt.Println(msg)
 
 	// デフォルトでは、送信と受信は、送信側と受信側の準備ができるまでブロックされる。
