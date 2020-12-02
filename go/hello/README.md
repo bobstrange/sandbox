@@ -68,4 +68,22 @@ import (
 ...
 ```
 
+### Remote の module の import
 
+import は、remote の path を書くこともできる。
+
+./hello.go
+
+```go
+...
+import (
+    "fmt"
+    "example.com/user/hello/morestrings"
+    "github.com/google/go-cmp/cmp"
+)
+...
+```
+
+`go install` や、 `go build` や、`go run` を実行したときに依存は自動的にダウンロードされて、 `go.mod` ファイルにバージョンとともに記載される
+
+ダウンロードされたものは、`$GOPATH/pkg/mod` に存在する。
