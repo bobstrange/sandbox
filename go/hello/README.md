@@ -87,3 +87,4 @@ import (
 `go install` や、 `go build` や、`go run` を実行したときに依存は自動的にダウンロードされて、 `go.mod` ファイルにバージョンとともに記載される
 
 ダウンロードされたものは、`$GOPATH/pkg/mod` に存在する。
+
