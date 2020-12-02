@@ -34,3 +34,38 @@ go install example.com/user/hello
 (`GO_BIN` が設定されている場合はそちらに)
 
 
+## package の import
+
+新しく package を作って、それを import する
+
+package 名のディレクトリを作って、そこに実装する。
+
+```shell
+mkdir morestrings
+touch morestrings/reverse.go
+```
+
+./morestrings/reverse.go
+
+```go
+package morestrings
+
+func ReverseRunes(s string) string {
+    ...
+}
+```
+
+`ReverseRunes` は大文字から始まっているので、export され、`morestrings` を import している他の package から使用できる。
+
+./hello.go
+
+```go
+...
+import (
+    "fmt"
+    "example.com/user/hello/morestrings"
+)
+...
+```
+
+
