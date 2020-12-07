@@ -17,7 +17,7 @@ type deps struct {
 
 func (d deps) handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	return events.APIGatewayProxyResponse{
-		Body:       fmt.Sprintf("Hello, %v", string(ip)),
+		Body:       fmt.Sprintf("Hello"),
 		StatusCode: 200,
 	}, nil
 }
@@ -30,5 +30,5 @@ func main() {
 		ddb:   ddb,
 		table: "SomeTable",
 	}
-	lambda.Start(d.handler))
+	lambda.Start(d.handler)
 }
