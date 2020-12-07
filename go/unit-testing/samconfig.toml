@@ -1,9 +1,0 @@
-version = 0.1
-[default]
-[default.deploy]
-[default.deploy.parameters]
-stack_name = "testing"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-a56irdycinex"
-s3_prefix = "testing"
-region = "ap-northeast-1"
-capabilities = "CAPABILITY_IAM"
