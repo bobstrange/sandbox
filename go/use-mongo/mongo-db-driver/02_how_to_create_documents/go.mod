@@ -1,4 +1,4 @@
-module quickstart
+module how_to_create_documents
 
 go 1.15
 
