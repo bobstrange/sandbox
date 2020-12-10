@@ -68,4 +68,17 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("Debug: episodesFiltered:", episodesFiltered)
+
+	// ソート は findOptions で設定する
+	fOpts := options.Find()
+	fOpts.SetSort(bson.D{{Key: "duration", Value: -1}})
+	cur, err = episodesColl.Find(ctx, bson.D{{Key: "duration", Value: bson.D{{Key: "$gt", Value: 24}}}}, fOpts)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var episodesSorted []bson.M
+	if err = cur.All(ctx, &episodesSorted); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Debug episodesSorted: ", episodesSorted)
 }
