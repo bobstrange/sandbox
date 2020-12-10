@@ -14,7 +14,7 @@ import (
 
 type Trainer struct {
 	Name string
-	Age int
+	Age  int
 	City string
 }
 
@@ -93,18 +93,19 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for cur.Next(context.TODO()) {
-		var elem Trainer
-		err := cur.Decode(&elem)
-		if err != nil {
-			log.Fatal(err)
-		}
-		results = append(results, &elem)
-	}
+	cur.All(context.TODO(), results)
+	// for cur.Next(context.TODO()) {
+	// 	var elem Trainer
+	// 	err := cur.Decode(&elem)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	results = append(results, &elem)
+	// }
 
-	if err := cur.Err(); err != nil {
-		log.Fatal(err)
-	}
+	// if err := cur.Err(); err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// 読み込みが完了したらカーソルをクローズする
 	cur.Close(context.TODO())
