@@ -26,6 +26,8 @@ func main() {
 	db := cli.Database("quickstart")
 	episodesColl := db.Collection("episodes")
 	cur, err := episodesColl.Find(ctx, bson.M{})
+
+	// 結果セットは、 []bson.M でとりあえず受けることができる
 	var episodes []bson.M
 
 	// 結果セットが大きくない場合は、cursol.All() を使うと良い
@@ -47,4 +49,23 @@ func main() {
 		}
 		fmt.Println("cur.Next()", epi)
 	}
+
+	// 1 件取得してくる場合は、 FindOne() を使う
+	podcastColl := db.Collection("podcasts")
+	var podcast bson.M
+	if err = podcastColl.FindOne(ctx, bson.M{}).Decode(&podcast); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Debug: podcastColl.FindOne().Decode():", podcast)
+
+	// 条件をつけて検索
+	cur, err = episodesColl.Find(ctx, bson.M{"duration": 25})
+	if err != nil {
+		log.Fatal(err)
+	}
+	var episodesFiltered []bson.M
+	if err = cur.All(ctx, &episodesFiltered); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Debug: episodesFiltered:", episodesFiltered)
 }
