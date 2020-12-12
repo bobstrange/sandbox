@@ -47,5 +47,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// 差分が無い場合は ModifiedCount -> 0 になる
 	fmt.Printf("Updated %v Documents!\n", res.ModifiedCount)
+
+	res, err = podcastsColl.UpdateMany(
+		ctx,
+		bson.M{"title": "The Polyglot Developer Podcast"},
+		bson.D{
+			{"$set", bson.D{{"author", "Jane Done"}}},
+		},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Updated %v documents!\n", res.ModifiedCount)
 }
