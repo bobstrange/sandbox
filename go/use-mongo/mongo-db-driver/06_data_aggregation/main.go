@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -39,9 +40,9 @@ func main() {
 	}
 	defer cli.Disconnect(ctx)
 
-	// db := cli.Database("quickstart")
-	// podcastsColl := db.Collection("podcasts")
-	// episodesColl := db.Collection("episodes")
+	db := cli.Database("quickstart")
+	podcastsColl := db.Collection("podcasts")
+	episodesColl := db.Collection("episodes")
 
 	// Insert a podcast
 	pInput := `
@@ -62,6 +63,12 @@ func main() {
 	}
 	pp.Print(podcast)
 
+	res, err := podcastsColl.InsertOne(ctx, podcast)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Debug: inserted podcast _id: %v\n", res.InsertedID)
+
 	// Insert some episodes
 	file, err := os.Open("episodes.json")
 	if err != nil {
@@ -74,10 +81,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var episodes []*Episode
+	var episodes []interface{}
 	if err := json.Unmarshal(input, &episodes); err != nil {
 		log.Fatal(err)
 	}
 	pp.Print(episodes)
+
+	episodesRes, err := episodesColl.InsertMany(ctx, episodes)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Debug: inserted episodes _ids: %v\n", episodesRes.InsertedIDs)
 
 }
