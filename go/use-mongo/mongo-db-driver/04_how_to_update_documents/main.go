@@ -25,7 +25,6 @@ func main() {
 
 	db := cli.Database("quickstart")
 	podcastsColl := db.Collection("podcasts")
-	// episodesColl := db.Collection("episodes")
 
 	id, _ := primitive.ObjectIDFromHex("5fd0e45b62af2dde1fa29046")
 
@@ -41,7 +40,13 @@ func main() {
 		ctx,
 		bson.M{"_id": id},
 		bson.D{
-			{"$set", bson.D{{"author", "John Doe"}}},
+			{
+				"$set",
+				bson.D{
+					{"author", "John Doe"},
+					{"title", "Whatever"},
+				},
+			},
 		},
 	)
 	if err != nil {
@@ -54,11 +59,24 @@ func main() {
 		ctx,
 		bson.M{"title": "The Polyglot Developer Podcast"},
 		bson.D{
-			{"$set", bson.D{{"author", "Jane Done"}}},
+			{"$set", bson.D{{"author", "Jane Doe"}}},
 		},
 	)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("Updated %v documents!\n", res.ModifiedCount)
+
+	res, err = podcastsColl.ReplaceOne(
+		ctx,
+		bson.M{"author": "Jane Doe"},
+		bson.M{
+			"title":  "Jane Doe's podcast",
+			"author": "Jane Doe",
+		},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Debug: ReplaceOne() %v Documents\n", res.ModifiedCount)
 }
