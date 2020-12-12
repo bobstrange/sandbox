@@ -40,7 +40,27 @@ func main() {
 	defer cli.Disconnect(ctx)
 
 	// db := cli.Database("quickstart")
+	// podcastsColl := db.Collection("podcasts")
 	// episodesColl := db.Collection("episodes")
+
+	// Insert a podcast
+	pInput := `
+      {
+        "id": "5e3b37e51c9d4400004117e6",
+        "title": "Sample podcast",
+        "author": "Adam Smith",
+        "tags": [
+          { "name": "tag1", "value": "tagv1" },
+          { "name": "tag2", "value": "tagv2" }
+        ]
+      }
+	`
+
+	var podcast *Podcast
+	if err := json.Unmarshal([]byte(pInput), &podcast); err != nil {
+		log.Fatal(err)
+	}
+	pp.Print(podcast)
 
 	// Insert some episodes
 	file, err := os.Open("episodes.json")
@@ -59,4 +79,5 @@ func main() {
 		log.Fatal(err)
 	}
 	pp.Print(episodes)
+
 }
