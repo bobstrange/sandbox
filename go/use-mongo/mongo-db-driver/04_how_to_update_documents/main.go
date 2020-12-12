@@ -27,8 +27,23 @@ func main() {
 	podcastsColl := db.Collection("podcasts")
 	// episodesColl := db.Collection("episodes")
 
-	id, _ := primitive.ObjectIDFromHex("5fd0e469785ebdf7eae66137")
-	res, err := podcastsColl.UpdateOne(ctx, bson.M{"_id": id}, bson.D{{Key: "$set", Value: bson.D{{Key: "author", Value: "Nic Raboy"}}}})
+	id, _ := primitive.ObjectIDFromHex("5fd0e45b62af2dde1fa29046")
+
+	var podcast bson.M
+	podcastsColl.FindOne(ctx, bson.M{"_id": id})
+
+	if podcastsColl.FindOne(ctx, bson.M{"_id": id}).Decode(&podcast); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Debug: FindOne(): ", podcast)
+
+	res, err := podcastsColl.UpdateOne(
+		ctx,
+		bson.M{"_id": id},
+		bson.D{
+			{"$set", bson.D{{"author", "John Doe"}}},
+		},
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
