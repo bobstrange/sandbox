@@ -9,13 +9,14 @@ Description: >
 Globals:
   Function:
     Timeout: 5
+    MemorySize: 128
 
 Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: hello-world/
-      Handler: hello-world
+      Handler: main
       Runtime: go1.x
       Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
       Events:
@@ -31,7 +32,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: greet/
-      Handler: greet
+      Handler: main
       Runtime: go1.x
       Tracing: Active
       Events:
@@ -43,6 +44,22 @@ Resources:
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
           PARAM1: VALUE
+  SNSFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: sns/
+      Handler: main
+      Runtime: go1.x
+      Tracing: Active
+      Events:
+        SNS:
+          Type: SNS
+          Properties:
+            Topic: !Ref Topic
+Topic:
+  Type: 'AWS::SNS::TOPIC'
+  Properties:
+    TopicName: 'eiger-test-topic'
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
