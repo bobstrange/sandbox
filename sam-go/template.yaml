@@ -51,15 +51,20 @@ Resources:
       Handler: main
       Runtime: go1.x
       Tracing: Active
-      Events:
-        SNS:
-          Type: SNS
-          Properties:
-            Topic: !Ref Topic
-Topic:
-  Type: 'AWS::SNS::TOPIC'
-  Properties:
-    TopicName: 'eiger-test-topic'
+      # Events:
+      #   SNS:
+      #     Type: SNS
+      #     Properties:
+      #       Topic: !Ref MySNSTopic
+  MySNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: 'My sns topic'
+      TopicName: 'my-sns-topic'
+      Subscription:
+        - Endpoint:
+            Fn::GetAtt: ['SNSFunction', 'Arn']
+          Protocol: lambda
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
