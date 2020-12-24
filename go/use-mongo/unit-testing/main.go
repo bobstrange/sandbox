@@ -80,6 +80,15 @@ func filterTasks(filter interface{}) ([]*Task, error) {
 	return tasks, nil
 }
 
+func completeTask(text string) error {
+	filter := bson.D{primitive.E{Key: "text", Value: text}}
+	update := bson.D{primitive.E{Key: "$set", Value: bson.D{
+		primitive.E{Key: "completed", Value: true},
+	}}}
+	t := &Task{}
+	return collection.FindOneAndUpdate(ctx, filter, update).Decode(t)
+}
+
 func printTasks(tasks []*Task) {
 	for i, t := range tasks {
 		if t.Completed {
@@ -133,6 +142,18 @@ func allCommand() *cli.Command {
 	}
 }
 
+func completeCommand() *cli.Command {
+	return &cli.Command{
+		Name:    "done",
+		Aliases: []string{"d"},
+		Usage:   "complete a task on the list",
+		Action: func(c *cli.Context) error {
+			text := c.Args().First()
+			return completeTask(text)
+		},
+	}
+}
+
 func main() {
 	app := &cli.App{
 		Name:  "tasker",
@@ -140,6 +161,7 @@ func main() {
 		Commands: []*cli.Command{
 			addCommand(),
 			allCommand(),
+			completeCommand(),
 		},
 	}
 
