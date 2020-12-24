@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 
+	"github.com/urfave/cli/v2"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -22,4 +24,16 @@ func init() {
 		log.Fatal(err)
 	}
 	collection = client.Database("tasker").Collection("tasks")
+}
+
+func main() {
+	app := &cli.App{
+		Name:     "tasker",
+		Usage:    "A simple CLI program to manage your tasks",
+		Commands: []*cli.Command{},
+	}
+
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal(err)
+	}
 }

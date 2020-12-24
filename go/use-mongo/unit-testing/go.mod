@@ -2,4 +2,7 @@ module github.com/bobstrange/unit-testing
 
 go 1.15
 
-require go.mongodb.org/mongo-driver v1.4.4 // indirect
+require (
+	github.com/urfave/cli/v2 v2.3.0 // indirect
+	go.mongodb.org/mongo-driver v1.4.4 // indirect
+)
