@@ -1,4 +1,4 @@
-package slices_test
+package go_type_test
 
 import (
 	"fmt"
