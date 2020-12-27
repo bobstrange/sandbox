@@ -1,6 +1,9 @@
 package go_pointer_test
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 type T struct {
 	Number int
@@ -21,5 +24,16 @@ func TestContainerValue(t *testing.T) {
 	c.V.Text = "Hi"
 	if c.V.Text != "Hi" {
 		t.Fatal("c.V.Text should be Hi but got ", c.V.Text)
+	}
+}
+
+func TestContainerPointer(t *testing.T) {
+	c := map[int]T{0: T{}}
+	// cannot assign to struct field c[0].Number in map
+	// c[0].Number = 1
+	c[0] = T{Number: 1}
+	fmt.Println(c[0].Number)
+	if c[0].Number != 1 {
+		t.Fatal("c[0].Number should be 1 but got ", c[0].Number)
 	}
 }
