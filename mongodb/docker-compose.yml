@@ -3,10 +3,14 @@ version: '3.1'
 services:
 
   mongo:
-    image: mongo
+    image: mongo:latest
+    volumes:
+      #      - ./docker/mongod.conf:/etc/mongod.conf
+      - ./docker/db:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: example
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
-      - 47017:27017
+      - ${MONGO_PORT}:27017
 
