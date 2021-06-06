@@ -5,12 +5,13 @@ services:
   mongo:
     image: mongo:latest
     volumes:
-      #      - ./docker/mongod.conf:/etc/mongod.conf
-      - ./docker/db:/data/db
+      - ./mongod.conf:/etc/mongod.conf
+      - ./db:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
       - ${MONGO_PORT}:27017
+    command: ["-f", "/etc/mongod.conf"]
 
