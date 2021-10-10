@@ -245,3 +245,20 @@ dir_2
 dir_3
 dir_4
 ```
+
+## bash によるメタプログラミング
+
+`bash` はコマンドを並べた命令をパイプから受け取ることができる
+
+```bash
+seq 4 | awk '{print "mkdir " ($1 % 2 ? "odd_": "even_") $1}'
+mkdir odd_1
+mkdir even_2
+mkdir odd_3
+mkdir even_4
+
+# bash に渡すことで、mkdir が実行される
+seq 4 | awk '{print "mkdir " ($1 % 2 ? "odd_": "even_") $1}' | bash
+```
+
+※ 三項演算子の部分を `()` で囲む
