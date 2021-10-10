@@ -262,3 +262,18 @@ seq 4 | awk '{print "mkdir " ($1 % 2 ? "odd_": "even_") $1}' | bash
 ```
 
 ※ 三項演算子の部分を `()` で囲む
+
+## ファイルの操作
+
+`find` 存在するディレクトリが列挙される
+
+```bash
+find shellgei160 | grep files.txt
+```
+
+## Q.001
+
+[answer](./q001.sh)
+
+`sed -n` で各行を自動的に出力しない
+`/regexp/p` で正規表現にマッチする行のみ出力

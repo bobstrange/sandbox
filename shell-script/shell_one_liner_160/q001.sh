@@ -9,5 +9,5 @@ FILEPATH=$(find shellgei160 | grep files.txt)
 grep "\.exe$" "${FILEPATH}"
 
 # 別解
-# cat "${FILEPATH}" | sed -n '/\.exe$/p'
+cat "${FILEPATH}" | sed -n '/\.exe$/p'
 cat "${FILEPATH}" | awk '/\.exe$/'
