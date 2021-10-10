@@ -277,3 +277,57 @@ find shellgei160 | grep files.txt
 
 `sed -n` で各行を自動的に出力しない
 `/regexp/p` で正規表現にマッチする行のみ出力
+
+## Q.002
+
+[answer](./q002.sh)
+
+`time` でコマンドの実行時間を計測できる
+
+```bash
+./q002.sh
+
+real    0m1.939s
+user    0m9.813s
+sys     0m0.837s
+```
+
+`xargs -P` で並列実行ができる
+
+```
+xargs -P 1
+
+real    0m1.761s
+user    0m9.184s
+sys     0m0.790s
+xargs -P 2
+
+real    0m1.201s
+user    0m9.436s
+sys     0m0.789s
+xargs -P 3
+
+real    0m1.113s
+user    0m9.697s
+sys     0m0.763s
+xargs -P 4
+
+real    0m1.119s
+user    0m10.106s
+sys     0m0.593s
+xargs -P 6
+
+real    0m1.064s
+user    0m9.919s
+sys     0m0.641s
+xargs -P 8
+
+real    0m1.027s
+user    0m9.944s
+sys     0m0.559s
+```
+
+ページキャッシュが効いているので、速度は線形にはならない
+
+`xargs -P $(nproc)`
+`nproc` で使用できるプロセッサの数がわかるので、`-P` に渡せる
