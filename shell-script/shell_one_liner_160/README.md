@@ -203,3 +203,45 @@ seq 19 | awk '{ print $1 % 2 ? "奇数" : "偶数"}' | awk '{a[$1]++}END{for(k i
 `a[$1]` で、連想配列
 `for(k in obj)` で、obj のキーについてループできる
 `for(i=1;i<5;i++)` 的なループもできる
+
+## xargs
+
+`xargs` は、コマンドに引数を渡して実行してもらうためのコマンド
+
+```bash
+# 1 ~ 4 までのディレクトリを作成
+seq 4 | xargs mkdir
+
+# 1 ~ 4 のディレクトリを削除
+seq 4 | xargs rmdir
+
+# 1, 3 というディレクトリを 2, 4 に変更
+mkdir 1 3
+seq 4 | xargs -n2 mv
+
+# dir_1 ~ dir_4 を作成
+seq 4 | xargs -I{} mkdir dir_{}
+```
+
+`xargs -n <num>` で、入力された文字列を指定した個数ずつコマンドに渡すという意味になる
+
+```bash
+seq 5 | xargs -n 2
+1 2
+3 4
+5
+seq 5 | xargs -n 3
+1 2 3
+4 5
+```
+
+`xargs -I{}`
+`xargs` が受け取った文字列で `-I` に指定したパターンを置き換える
+
+```bash
+seq 4 | xargs -I{} echo dir_{}
+dir_1
+dir_2
+dir_3
+dir_4
+```
