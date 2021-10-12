@@ -359,3 +359,13 @@ ls -U | xargs -P $(nproc) rename 's/^/0000000/;s/0*([0-9]{7})/$1/'
 
 `grep -R` ディレクトリの内部のファイルを再帰的に読み込む
 `grep -l` ファイル名のみ出力
+
+## Q.005
+
+[answer](./q005.sh)
+
+`grep` ではなく `awk` で `pool` で始まる行を抽出できる
+
+```bash
+cat shellgei160/qdata/5/ntp.conf| awk '$1 == "pool"{ print $2 }'
+```
