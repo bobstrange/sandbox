@@ -395,4 +395,21 @@ seq 5 -1 1
 1
 ```
 
+## Q.007
+
 awk で行全体を表すのは `$0`
+
+```bash
+cat ./shellgei160/qdata/7/kakeibo.txt | awk '{ tax = 1.1; print($0, tax) }'
+```
+
+$1 が "20191001" 以前もしくは、
+`*` がついている行のみ tax を 1.08 にする
+
+`||` or 演算子と、三項演算子、 `~` 正規表現が使用できる
+
+```bash
+cat ./shellgei160/qdata/7/kakeibo.txt | awk '{ tax = ( $1 < "20191001" || $2 ~ /^\*/ ); print($0, tax) }'
+```
+
+`int()` で切り捨てができる
