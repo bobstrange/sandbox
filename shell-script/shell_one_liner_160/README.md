@@ -369,3 +369,28 @@ ls -U | xargs -P $(nproc) rename 's/^/0000000/;s/0*([0-9]{7})/$1/'
 ```bash
 cat shellgei160/qdata/5/ntp.conf| awk '$1 == "pool"{ print $2 }'
 ```
+
+## Q.006
+
+[answer](./q006.sh)
+
+```bash
+seq 5 | awk '{ for(i = 0;i < $1; i++) { printf " "}; print "x" }' | tac
+```
+
+`tac` コマンドで出力をひっくり返すことができるらしい
+
+`seq` コマンドは、↓のように使えるので、`FIRST` に 5 を `INCREMENT` に -1 を LAST に `1` を設定し、5 ~ 1 を出力できる
+
+seq [OPTION]... LAST
+seq [OPTION]... FIRST LAST
+seq [OPTION]... FIRST INCREMENT LAST
+
+```bash
+seq 5 -1 1
+5
+4
+3
+2
+1
+```
