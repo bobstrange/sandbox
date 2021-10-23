@@ -413,3 +413,11 @@ cat ./shellgei160/qdata/7/kakeibo.txt | awk '{ tax = ( $1 < "20191001" || $2 ~ /
 ```
 
 `int()` で切り捨てができる
+
+## q009
+
+`awk '$4 " " $5'` で、4 列目と空白１つと5列目をそのまま連結した文字列になる
+
+```bash
+echo "sample1 sample2 sample3" | awk -F ' ' '$1'
+```
