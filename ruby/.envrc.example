@@ -1,0 +1,4 @@
+# octokit で SSL の証明書が見つからないエラーがでるので設定
+
+export SSL_CERT_DIR=/etc/ssl/certs
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
