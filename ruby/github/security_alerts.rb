@@ -20,21 +20,23 @@ def get(client, page_number, per_page)
   rescue Octokit::InternalServerError => e
     puts "error page_number: #{page_number}"
     error = JSON.parse(e.response_body)
-    match = error["message"] =~ /Unable to fetch secret for alert number (\d+)\.$/
+    match = error["message"].match(/Unable to fetch secret for alert number (\d+)\.$/)
 
-    File.open("error_numbers", "a") { |f|
-      f.write("#{alert_number = match[1]}\n")
+    File.open("error_numbers.txt", "a") { |f|
+      f.write("#{match[1]}\n")
     }
   end
 end
 
+# Remove the error_numbers.txt file if it exists
+File.exist?("error_numbers.txt") && File.delete("error_numbers.txt")
+
 per_page = 5
 
-result = (0..(955 / per_page)).collect do |page_number|
-  get(client, page_number, per_page)
+result = (0..(955 / per_page)).collect { |page_number|
+  data = get(client, page_number, per_page)
   sleep 1
-end
-
-binding.pry
+  data
+}.flatten.map(&:to_h) # Result is Array<Sawyer::Resource> so we need to convert to Hash
 
 File.write("result.json", result.to_json)
