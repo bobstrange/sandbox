@@ -25,6 +25,7 @@ def get(client, page_number, per_page)
     File.open("error_numbers.txt", "a") { |f|
       f.write("#{match[1]}\n")
     }
+    nil
   end
 end
 
@@ -37,6 +38,7 @@ result = (0..(955 / per_page)).collect { |page_number|
   data = get(client, page_number, per_page)
   sleep 1
   data
-}.flatten.map(&:to_h) # Result is Array<Sawyer::Resource> so we need to convert to Hash
+}.flatten.compact
+result = result.map(&:to_h) # Result is Array<Sawyer::Resource> so we need to convert to Hash
 
 File.write("result.json", result.to_json)
