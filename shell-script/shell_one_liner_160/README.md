@@ -294,6 +294,62 @@ sed |& less
 `n>&m` は n 番の出力を m 番に向ける
 `|&` は標準出力、標準エラー出力をパイプで渡す
 
+### 文字列連結と置換
+
+パラメータの展開 (Parameter Expansion) (`man bash` の Parameter Expansion を参考に)
+
+```bash
+a="私は"
+b="俳優よ"
+c="${a}${b}"; echo ${c}
+a+="${b}"; echo ${a}
+b="${a:0:1}${a:2:2}"; echo ${b}
+c=${a/俳優/排骨麺}; echo ${c}
+```
+
+#### Parameter Expansion (変数展開)
+
+部分文字列
+
+- `${parameter:offset}`
+  - `foo="test"; echo ${foo:1}` => `est`
+`${parameter:offset:length}`
+  - `foo="testdata"; echo ${foo:1:3}` => `est`
+
+長さ
+
+- `${#parameter}
+  - `foo="test"; echo ${#foo}` => 4
+
+特定のパターンを削除
+Remove matching prefix pattern
+
+- `${parameter#word}
+  - `#` だと 最短一致
+- `${parameter##word}
+  - `##` だと 最短一致
+
+```bash
+foo="foo/bar/baz.json.gz"; echo ${foo#*/}
+bar/baz.json.gz
+foo="foo/bar/baz.json.gz"; echo ${foo##*/}
+baz.json.gz
+```
+
+Remove matching suffix pattern
+
+- ${parameter%word}
+  - `%` だと 最短一致
+- ${parameter%%word}
+  - `%%` だと 最短一致
+
+```bash
+foo="foo/bar/baz.json.gz"; echo ${foo%/*}
+foo/bar
+foo="foo/bar/baz.json.gz"; echo ${foo%%/*}
+foo
+```
+
 ## Q.001
 
 [answer](./q001.sh)
