@@ -6,4 +6,4 @@ else
   num="$1"
 fi
 
-echo $(( "$num" * 2 ))
+echo $(( num * 2 ))
