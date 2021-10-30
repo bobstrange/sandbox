@@ -381,12 +381,15 @@ b["USER"]="$USER"
 echo ${a[2]}
 echo ${b["LANG"]}
 
+# 要素を全て表示
 echo ${a[@]}
 echo ${b[@]}
 
+# 要素数を表示
 echo ${#a[@]}
 echo ${#b[@]}
 
+# キーを表示
 echo ${!b[@]}
 ```
 
