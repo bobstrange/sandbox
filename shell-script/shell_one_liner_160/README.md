@@ -629,3 +629,20 @@ for (( n = 1; n <= 100; n++ )); do ... done
 ```bash
 xargs 100 | -I@ bash -c " ... ; sleep 1"
 ```
+
+## q015
+
+`sed` 使って解いたけど `sed` ダメなのか :-(
+
+`\U` と `\L` で uppercase と lower case
+
+`tr` (translate) でも良い `echo something | tr '[:lower:]' '[:upper:]'
+
+bash だけでなんとかする場合は、パイプから変数に文字を取り込む必要があるらしい
+
+- q014 でもやった、`while read var; do ... done` で、変数を読み取れる
+- `echo something | bash -c 'read a; echo $a'` でも読み取れる
+- サブシェルでも良い `echo something | (read a; echo $a)`
+
+変数に取り込んだら、bash の変数展開 `${変数名^^}` で大文字にできる
+
