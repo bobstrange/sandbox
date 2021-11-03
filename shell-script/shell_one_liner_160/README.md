@@ -596,3 +596,36 @@ echo $((num * 2))
 ```
 
 `[` ( `test` ) コマンドの `-e` オプションで、ファイルの有無をチェックできる
+
+## q14
+
+ループを回すやり方を覚えるための問題
+
+カウンタ `n` を使う場合
+
+```bash
+n=1
+while [ $n -le 100 ]; do
+  n=$(( n + 1 ))
+done
+```
+
+`seq` で数字を作って while を使う場合
+
+```bash
+seq 100 | while read n; do ... done
+```
+
+for で回す場合
+
+```bash
+for n in $(seq 100); do ... done
+for n in {1..100}; do ... done
+for (( n = 1; n <= 100; n++ )); do ... done
+```
+
+`xargs` + `bash` で組み合わせる場合
+
+```bash
+xargs 100 | -I@ bash -c " ... ; sleep 1"
+```
