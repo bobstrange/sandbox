@@ -412,6 +412,84 @@ echo ${!b[@]}
 `fg <job_id>` でバックグラウンドジョブをフォアグラウンドに持ってくることができる
 フォアグラウンドのジョブを `ctrl + z` で停止して、 `bg` でバックグラウンドで再開できる
 
+#### プロセスの親子関係
+
+`pstree` コマンドで、プロセスの親子関係を表示することができる
+
+```bash
+pstree -T | head -n 10
+```
+
+sleep を実行してから、`pstree` で確かめてみる
+
+```bash
+ sleep 100 | sleep 100 | sleep 100 | sleep 100 | sleep 100 &
+```
+
+```bash
+pstree -T | grep -A5 bash
+        |         |      |             `-zsh---bash-+-grep
+        |         |      |                          |-pstree
+        |         |      |                          `-5*[sleep]
+        |         |      `-code-+-code---7*[code]
+        |         |             `-code
+        |         |-dbus-daemon
+```
+
+`ps --forest` でも `ps` の出力に親子関係を加えられる
+
+#### ビルトインコマンドと外部コマンド
+
+ファイルの実体があるコマンド (`/bin/bash` など) を外部コマンド
+実体が無いコマンド (`cd`, `set`, `read` ) などは、ビルトインコマンド(組み込みコマンド)と呼ぶ
+ビルトインコマンドは、シェルの機能として、シェルにtyokusetu puroguramusareteiru .
+
+いくつかのコマンド (`echo` など) は、シェルに直接プログラムされている
+ビルトインコマンドのメリットは、高速であること
+
+例: ビルトインコマンドの echo と 外部コマンドの echo
+
+```bash
+time for i in {1..1000}; do /bin/echo "$i" > /dev/null; done
+
+real    0m0.762s
+user    0m0.573s
+sys     0m0.227s
+
+time for i in {1..1000}; do echo "$i" > /dev/null; done
+
+real    0m0.009s
+user    0m0.004s
+sys     0m0.004s
+```
+
+100 倍くらい違う
+外部コマンドは、別プロセスを起動するが、ビルトインコマンドは関数実行のようなものなので、呼び出しコストが全然違う
+
+#### ビルトインコマンドと外部コマンドの見分け方
+
+`which` や、 `type`、 `command -v` などのコマンドで、見分けることができる
+
+```bash
+which echo
+/bin/echo
+
+type echo
+echo はシェル組み込み関数です
+
+ command -v echo
+echo
+
+which bash
+/bin/bash
+
+type bash
+bash は /bin/bash です
+
+command -v bash
+/bin/bash
+```
+
 ---
 
 ## Q.001
