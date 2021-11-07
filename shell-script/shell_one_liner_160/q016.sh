@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd -- ${0%/*}
 tmp=$(pwd)
+cd -- ${0%/*}
 
 n="XYZ"
 
