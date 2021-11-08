@@ -5,6 +5,8 @@ require "json"
 
 Dotenv.load
 
+# Usage: ruby security_alerts.rb
+
 client = Octokit::Client.new(access_token: ENV["TOKEN"])
 
 def get(client, page_number, per_page)
@@ -33,8 +35,9 @@ end
 File.exist?("error_numbers.txt") && File.delete("error_numbers.txt")
 
 per_page = 5
+number_of_issues = 956
 
-result = (0..(955 / per_page)).collect { |page_number|
+result = (0..(number_of_issues / per_page)).collect { |page_number|
   data = get(client, page_number, per_page)
   sleep 1
   data
