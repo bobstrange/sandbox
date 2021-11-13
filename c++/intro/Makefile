@@ -1,5 +1,10 @@
 gcc_options = -std=c++17 -Wall --pedantic-error
 
+# Makefile のメモ
+# $@ ターゲットは、ターゲットのファイル名
+# ↓の場合は a.out となる
+# $< ターゲットは、最初の事前条件
+# ↓の場合は main.cpp となる
 a.out: main.cpp all.h all.h.gch
 	g++ $(gcc_options) $< -o $@
 
