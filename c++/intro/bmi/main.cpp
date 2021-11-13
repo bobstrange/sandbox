@@ -1,8 +1,15 @@
 #include "../all.h"
 
 int main() {
-  double h = 1.63;
-  double m = 72.0;
+
+  // 標準入力を受け取るための変数
+  double h{};
+  std::cout << "身長 (m) を入力してください\n"s;
+  std::cin >> h;
+
+  double m{};
+  std::cout << "体重 (kg) を入力してください\n"s;
+  std::cin >> m;
 
   auto calcbmi = [](double height, double mass) {
     return mass / (height * height);
