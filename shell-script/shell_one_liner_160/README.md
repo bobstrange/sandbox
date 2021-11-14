@@ -880,5 +880,31 @@ ls ?.* | grep -v -E [29]
 ls [^29].*
 
 1.bash  1.txt  3.bash  3.txt  4.bash  4.txt  5.bash  6.bash  6.txt  7.bash  7.txt  8.bash  8.txt```
+```
 
+## q020
+
+シェルの文字列展開でもできる
+
+```bash
+for file in /usr/*; do
+  echo ${file}
+done
+
+/usr/bin
+/usr/games
+/usr/include
+/usr/lib
+/usr/libexec
+/usr/local
+/usr/sbin
+/usr/share
+/usr/src
+
+for file in /usr/*; do
+  echo ${file##*/}
+done
+```
+
+`${変数名##*/}` 除去したい文字列
 
