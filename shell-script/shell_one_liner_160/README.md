@@ -813,3 +813,27 @@ done < /etc/passwd
 ```
 
 として、ループ全体に対してリダイレクトをすることができる
+
+## 2.3 ブレース展開とファイルグロブ
+
+### ブレース展開
+
+`{1..100}` や、 `{A..C}` -> シーケンス式
+
+```bash
+echo {山,上}田
+山田 上田
+
+echo {1..5}.{txt,bash}
+1.txt 1.bash 2.txt 2.bash 3.txt 3.bash 4.txt 4.bash 5.txt 5.bas
+
+echo {2..10..2}.{txt,bash}
+2.txt 2.bash 4.txt 4.bash 6.txt 6.bash 8.txt 8.bash 10.txt 10.bash
+
+echo {山,上}{田,　}
+山田 山　 上田 上　
+```
+
+`{2..10..2}` というシーケンス式で、1 つおきに数値を出力できる
+
+
