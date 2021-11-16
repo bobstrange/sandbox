@@ -27,25 +27,39 @@ int input() {
   return x;
 }
 
+// int main() {
+//   std::vector<int> input_buff;
+//   int x{};
+
+//   std::cout << "整数を入力してください\n"s;
+//   while ((x = input()) != 0) {
+//     input_buff.push_back(x);
+//   }
+
+//   std::cout << "input asc\n"s;
+
+//   for (std::size_t index = 0; index < input_buff.size(); index++) {
+//     std::cout << input_buff.at(index) << "\n"s;
+//   }
+
+//   std::cout << "input desc\n"s;
+
+//   for (std::size_t index = input_buff.size() - 1; index != 0; index--) {
+//     std::cout << input_buff.at(index) << "\n"s;
+//   }
+//   std::cout << input_buff.at(0) << "\n"s;
+// }
+
 int main() {
-  std::vector<int> input_buff;
-  int x{};
+  std::vector<int> v = {8, 3, 7, 4, 2, 9, 3};
+  std::size_t size = v.size();
 
-  std::cout << "整数を入力してください\n"s;
-  while ((x = input()) != 0) {
-    input_buff.push_back(x);
+  std::size_t min = 0;
+
+  for(std::size_t index = 0; index < size; index++) {
+    if (v.at(index) < v.at(min)) {
+      min = index;
+    }
   }
-
-  std::cout << "input asc\n"s;
-
-  for (std::size_t index = 0; index < input_buff.size(); index++) {
-    std::cout << input_buff.at(index) << "\n"s;
-  }
-
-  std::cout << "input desc\n"s;
-
-  for (std::size_t index = input_buff.size() - 1; index != 0; index--) {
-    std::cout << input_buff.at(index) << "\n"s;
-  }
-  std::cout << input_buff.at(0) << "\n"s;
+  std::cout << "min value index is :"s << min << " value is: "s << v.at(min) << "\n"s;
 }
