@@ -50,24 +50,46 @@ int input() {
 //   std::cout << input_buff.at(0) << "\n"s;
 // }
 
+// int main() {
+//   std::vector<int> v = {8, 3, 7, 4, 2, 9, 3};
+//   std::size_t size = v.size();
+
+//   for (std::size_t head = 0; head < size; head++) {
+//     std::size_t min = head;
+
+//     for (std::size_t index = head + 1; index < size; index++) {
+//       if (v.at(index) < v.at(min)) {
+//         min = index;
+//       }
+//     }
+//     auto tmp = v.at(head);
+//     v.at(head) = v.at(min);
+//     v.at(min) = tmp;
+//   }
+
+//   for (std::size_t index = 0; index < size; index++) {
+//     std::cout << v.at(index) << "\n"s;
+//   }
+// }
+
+// printf debugging
 int main() {
-  std::vector<int> v = {8, 3, 7, 4, 2, 9, 3};
-  std::size_t size = v.size();
+  std::vector<int> v = {3, 8, 2, 5, 6, 9, 4, 1, 7};
+  auto size = v.size();
 
   for (std::size_t head = 0; head < size; head++) {
-    std::size_t min = head;
-
+    auto min = head;
     for (std::size_t index = head + 1; index < size; index++) {
-      if (v.at(index) < v.at(min)) {
+      if (v.at(index) < v.at(min))
         min = index;
-      }
     }
-    auto tmp = v.at(head);
+
+    auto temp = v.at(head);
     v.at(head) = v.at(min);
-    v.at(min) = tmp;
+    v.at(min) = v.at(head);
   }
 
-  for (std::size_t index = 0; index < size; index++) {
-    std::cout << v.at(index) << "\n"s;
+  for (std::size_t i = 0; i < size; i++) {
+    std::cout << v.at(i) << " "s;
   }
 }

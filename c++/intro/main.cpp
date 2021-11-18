@@ -18,4 +18,9 @@ int main() {
 
   print(100);
   print("something"s);
+
+  // 標準エラー出力は、std::
+
+  std::cerr << "標準エラー出力なので > /dev/null しても表示されるよ\n"s;
+  std::cerr << "標準エラー出力なので 2> じゃないとリダイレクト出来ないよ\n"s;
 }
