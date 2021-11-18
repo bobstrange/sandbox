@@ -48,6 +48,39 @@ void number() {
 
   // ruby の　_ みたいな感じで数値を区切れる
   int a = 1000'000;
+
+  // int
+  auto x = 123;
+
+  // uint
+  unsigned int uint_x = 123;
+  auto uint_x2 = 123u;
+
+  // long
+  long int long_x = 123;
+  unsigned long int ulong_x = 123;
+  auto long_x2 = 123l;
+  auto ulong_x2 = 123ul;
+
+  // size
+  std::cout << "sizeof(int): "s << sizeof(int) << "\n"s;
+  std::cout << "sizeof(x): "s << sizeof(x) << "\n"s;
+  std::cout << "sizeof(char): "s << sizeof(char) << "\n"s;
+  std::cout << "sizeof(short): "s << sizeof(short) << "\n"s;
+  std::cout << "sizeof(long): "s << sizeof(long) << "\n"s;
+  std::cout << "sizeof(long long): "s << sizeof(long long) << "\n"s;
+
+  // max and min
+  std::cout << "std::numeric_limits<int>::min(): " << std::numeric_limits<int>::min() << "\n"s;
+  std::cout << "std::numeric_limits<int>::max(): " << std::numeric_limits<int>::max() << "\n"s;
+
+  std::cout << "std::numeric_limits<unsigned int>::min(): " << std::numeric_limits<unsigned int>::min() << "\n"s;
+  std::cout << "std::numeric_limits<unsigned int>::max(): " << std::numeric_limits<unsigned int>::max() << "\n"s;
+  std::cout << "std::numeric_limits<short>::min(): " << std::numeric_limits<short>::min() << "\n"s;
+  std::cout << "std::numeric_limits<short>::max(): " << std::numeric_limits<short>::max() << "\n"s;
+  std::cout << "std::numeric_limits<long>::min(): " << std::numeric_limits<long>::min() << "\n"s;
+  std::cout << "std::numeric_limits<long>::max(): " << std::numeric_limits<long>::max() << "\n"s;
+
 }
 
 int main() {
