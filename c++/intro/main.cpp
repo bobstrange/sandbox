@@ -80,12 +80,40 @@ void number() {
   std::cout << "std::numeric_limits<short>::max(): " << std::numeric_limits<short>::max() << "\n"s;
   std::cout << "std::numeric_limits<long>::min(): " << std::numeric_limits<long>::min() << "\n"s;
   std::cout << "std::numeric_limits<long>::max(): " << std::numeric_limits<long>::max() << "\n"s;
+}
 
+void floating_point_number() {
+  auto print = [](std::basic_string<char> type, std::size_t val) {
+    std::cout << "sizeof("s << type << "): "s << val << "\n"s;
+  };
+
+  print("float"s, sizeof(float));
+  print("double"s, sizeof(double));  print("long double"s, sizeof(long double));
+
+  // 誤差
+  float a = 10000.0;
+  float b = 0.0001;
+  float c = a + b;
+
+  std::cout << "a + b = " << c << "\n"s;
+
+  // リテラル (デフォルトはダブル)
+  auto float_x = 123.45f;
+  auto double_x = 123.45;
+  auto long_double_x = 123.45l;
+
+  // 123.456 の表現
+  // 仮数 (fractional part) (coefficient, significand, mantissa)
+  // 指数 (exponent part)
+  auto val1 = 1.23456e2;
+  auto val2 = 123456e-3;
+  auto val3 = 123.456e0;
 }
 
 int main() {
   vars_and_funcs();
   std_err();
   number();
+  floating_point_number();
 }
 
