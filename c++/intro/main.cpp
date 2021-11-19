@@ -123,15 +123,21 @@ void use_namespace() {
   std::cout << "example_namespace::x : "s << example_namespace::x << "\n"s;
   std::cout << "example_namespace::sum(10,20) : "s << example_namespace::sum(10, 20) << "\n"s;
 
+  // namespace の alias
   namespace ns = example_namespace;
   std::cout << "ns::x : "s << ns::x << "\n"s;
   std::cout << "ns::sum(1,2) : "s << ns::sum(1, 2) << "\n"s;
 
+  // mixin 的な
   using namespace std;
   using namespace example_namespace;
 
   cout << "x: "s << x << "\n"s;
   cout << "sum(10,30): "s << sum(10,30) << "\n"s;
+
+  // typealias
+  using Number = int;
+  Number a = 123;
 }
 
 int main() {
