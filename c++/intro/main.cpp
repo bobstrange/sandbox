@@ -122,6 +122,16 @@ void use_namespace() {
 
   std::cout << "example_namespace::x : "s << example_namespace::x << "\n"s;
   std::cout << "example_namespace::sum(10,20) : "s << example_namespace::sum(10, 20) << "\n"s;
+
+  namespace ns = example_namespace;
+  std::cout << "ns::x : "s << ns::x << "\n"s;
+  std::cout << "ns::sum(1,2) : "s << ns::sum(1, 2) << "\n"s;
+
+  using namespace std;
+  using namespace example_namespace;
+
+  cout << "x: "s << x << "\n"s;
+  cout << "sum(10,30): "s << sum(10,30) << "\n"s;
 }
 
 int main() {
