@@ -110,10 +110,25 @@ void floating_point_number() {
   auto val3 = 123.456e0;
 }
 
+
+namespace example_namespace {
+  int x{};
+
+  auto sum = [](auto x, auto y) { return x + y; };
+}
+
+void use_namespace() {
+  example_namespace::x = 50;
+
+  std::cout << "example_namespace::x : "s << example_namespace::x << "\n"s;
+  std::cout << "example_namespace::sum(10,20) : "s << example_namespace::sum(10, 20) << "\n"s;
+}
+
 int main() {
   vars_and_funcs();
   std_err();
   number();
   floating_point_number();
+  use_namespace();
 }
 
