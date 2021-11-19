@@ -173,9 +173,40 @@ void use_iterator() {
 
   output_all(std::begin(v), std::end(v));
 
-  std::cout << "数字を入力してください (Ctrl+D で終了)";
-  std::istream_iterator<int> fp( std::cin ), lp;
-  output_all(fp, lp);
+  // std::cout << "数字を入力してください (Ctrl+D で終了)";
+  // std::istream_iterator<int> fp( std::cin ), lp;
+  // output_all(fp, lp);
+}
+
+void lvalue_ref() {
+  int a = 1;
+  int b = 2;
+
+  b = a;
+  std::cout << "a: "s << a <<  " b: "s << b << "\n"s; // a: 1 b: 1
+
+  b = 3;
+  std::cout << "a: "s << a <<  " b: "s << b << "\n"s; // a: 1 b: 3
+
+  int x = 1;
+  // & をつけると参照渡しにできる
+  int & y = x;
+
+  std::cout << "x: "s << x <<  " y: "s << y << "\n"s; // x: 1 y: 1
+
+  y = 3;
+  std::cout << "x: "s << x <<  " y: "s << y << "\n"s; // x: 3 y: 3
+
+  x = 5;
+  std::cout << "x: "s << x <<  " y: "s << y << "\n"s; // x: 5 y: 5
+
+  auto f = [](int & input) {
+    input = 10;
+  };
+
+  f(x);
+
+  std::cout << "x: "s << x <<  " y: "s << y << "\n"s; // x: 10 y: 10
 }
 
 int main() {
@@ -185,5 +216,6 @@ int main() {
   floating_point_number();
   use_namespace();
   use_iterator();
+  lvalue_ref();
 }
 
