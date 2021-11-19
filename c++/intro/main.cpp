@@ -1,6 +1,5 @@
 #include "all.h"
 
-
 // 関数の場合は引数は auto にはできない
 auto plus (int x, int y) {
   return x + y;
@@ -164,6 +163,19 @@ void use_iterator() {
   for (auto iter = std::begin(v); iter != last; ++iter) {
     std::cout << *iter << "\n"s;
   }
+
+  // iterator の interface を使えば、いろいろなクラスのループに対応できる
+  auto output_all = [](auto first, auto last) {
+    for (auto iter = first; iter != last; ++iter) {
+      std::cout << *iter << "\n"s;
+    }
+  };
+
+  output_all(std::begin(v), std::end(v));
+
+  std::cout << "数字を入力してください (Ctrl+D で終了)";
+  std::istream_iterator<int> fp( std::cin ), lp;
+  output_all(fp, lp);
 }
 
 int main() {
