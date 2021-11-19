@@ -140,11 +140,38 @@ void use_namespace() {
   Number a = 123;
 }
 
+void use_iterator() {
+  std::vector<int> v = { 1, 2, 3, 4, 5 };
+  auto itr = std::begin(v);
+
+  int x = *itr; // 先頭の要素 1
+  *itr = 100; // 先頭の要素を 100 に変更 v は { 100, 2, 3, 4, 5 } になる
+
+  // iterator の next は ++
+  ++itr;
+  *itr; // 2
+  ++itr;
+  *itr; // 3
+
+  // iterator の prev は --
+  --itr;
+  *itr; // 2
+
+  // 最後の次の要素への iterator
+  auto last = std::end(v);
+
+  // iterator は比較できるので、最後の要素の次を指す iterator を利用して loop が書ける
+  for (auto iter = std::begin(v); iter != last; ++iter) {
+    std::cout << *iter << "\n"s;
+  }
+}
+
 int main() {
   vars_and_funcs();
   std_err();
   number();
   floating_point_number();
   use_namespace();
+  use_iterator();
 }
 
