@@ -1,5 +1,6 @@
 #include "../all.h"
 #include <algorithm>
+#include <ios>
 #include <iterator>
 #include <vector>
 
@@ -38,8 +39,26 @@ void for_each_example() {
 
   std::cout << "v is mutated\n"s;
   std::for_each(std::begin(v), std::end(v), [](auto x) { std::cout << x << ", "s; });
+  std::cout << "\n"s;
+}
+
+void all_of_example() {
+  std::vector<int> v = {1, 2, 3, 4, 5};
+
+  auto is_all_even = [](auto first, auto last) {
+    return std::all_of(first, last, [](auto x) { return x % 2 == 0; });
+  };
+
+  std::cout << "is_all_even {1, 2, 3, 4, 5}:"s << std::boolalpha << is_all_even(std::begin(v), std::end(v)) << "\n"s;
+
+  auto is_all_less_than_ten = [](auto first, auto last) {
+    return std::all_of(first, last, [](auto x) { return x < 10; });
+  };
+
+  std::cout << "is_all_less_than_ten {1, 2, 3, 4, 5}:"s << is_all_less_than_ten(std::begin(v), std::end(v)) << "\n"s;
 }
 
 int main() {
   for_each_example();
+  all_of_example();
 }
