@@ -87,6 +87,9 @@ void find_example() {
   };
 
   // find_if は predicate が使える
+  std::vector<int> v2 = { 1, 3, 5, 7, 9 };
+  auto pos2 = find_if(std::begin(v2), std::end(v2), [](auto x) { return x % 2 == 1; });
+  std::cout << "pos2 is: "s << *pos2 << "\n"s;
 }
 
 int main() {
