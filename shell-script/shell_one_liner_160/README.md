@@ -952,3 +952,42 @@ for n in $(seq 1 100); do
   echo $(grep -E "^[a-z]+$" /usr/share/dict/words | shuf -n1).$(shuf -n1 -e {com,org,{co.,}jp,net})
 done
 ```
+
+## シグナル
+
+### kill
+
+```bash
+sleep 1000 &
+[1] 7739
+```
+
+`[1]` が job 番号 `7739` が PID
+
+```bash
+kill 7739
+[1]  + terminated  sleep 1000
+```
+
+`kill` は、シグナルを送信するためのコマンド (**プロセスを kill するためのコマンドではない**)
+
+### シグナルの種類
+
+```bash
+#!/bin/bash
+
+echo $$       # PID を表示
+sleep 10000
+```
+
+↑の `notrap.sh` は `Ctrl+C` や kill で停止できる
+
+```bash
+#!/bin/bash
+
+trap '' 2 # signal 2 が来た時に何もしない
+echo $$
+sleep 10000
+```
+
+↑の `trap.sh` は `Ctrl+C` が効かなくなる
