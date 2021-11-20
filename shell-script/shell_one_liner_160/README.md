@@ -928,3 +928,27 @@ echo {A,B,C,}.{D,E,F}.{jp,com} | tr ' ' '\n'
 ```bash
 echo {A,B,C,}.{D,E,F}.{jp,com} | tr ' ' '\n' | sort -R | sed 's/^.//'
 ```
+
+```bash
+head -5 /usr/share/dict/words
+A
+As
+AMD
+AMDs
+AOL
+```
+
+を使用して Dummy Data の作成に利用できる
+
+```bash
+echo $(grep -E "^[a-z]+$" /usr/share/dict/words | shuf -n1).$(shuf -n1 -e {com,org,{co.,}.jp,net})
+```
+
+↑で、ランダムなドメインを 1 つ出力
+`shuf -n1` でシャッフルして 1つ選ぶという操作をしている
+
+```bash
+for n in $(seq 1 100); do
+  echo $(grep -E "^[a-z]+$" /usr/share/dict/words | shuf -n1).$(shuf -n1 -e {com,org,{co.,}jp,net})
+done
+```
