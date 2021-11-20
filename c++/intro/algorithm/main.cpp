@@ -56,9 +56,41 @@ void all_of_example() {
   };
 
   std::cout << "is_all_less_than_ten {1, 2, 3, 4, 5}:"s << is_all_less_than_ten(std::begin(v), std::end(v)) << "\n"s;
+
+  // 空の vector を渡すと
+
+  std::vector<int> empty;
+  auto res = std::all_of(std::begin(empty), std::end(empty), [](auto x) { return true; });
+  std::cout << "all_of for empty vector is "s << res << "\n"s;
+}
+
+void find_example() {
+  std::vector<int> v = {1, 2, 3, 4, 5};
+  auto pos = std::find(std::begin(v), std::end(v), 3);
+  std::cout << "pos is: "s << *pos << "\n"s;
+
+  auto not_found = std::find(std::begin(v), std::end(v), 10);
+
+  if (not_found != std::end(v)) {
+    std::cout << "Found\n"s;
+  } else {
+    std::cout << "Not found\n"s;
+  }
+
+  auto find = [](auto first, auto last, auto const & val)  {
+    for (auto itr = first; itr != last; ++itr) {
+      if (*itr == val) {
+        return itr;
+      }
+      return last;
+    }
+  };
+
+  // find_if は predicate が使える
 }
 
 int main() {
   for_each_example();
   all_of_example();
+  find_example();
 }
