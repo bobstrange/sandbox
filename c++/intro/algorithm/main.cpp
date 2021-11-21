@@ -92,8 +92,18 @@ void find_example() {
   std::cout << "pos2 is: "s << *pos2 << "\n"s;
 }
 
+void copy_example() {
+  std::vector<int> source = {1, 2, 3, 4, 5};
+  std::vector<int> destination(5);
+  std::copy(std::begin(source), std::end(source), std::begin(destination));
+
+  std::cout << "destination is \n"s;
+  std::for_each(std::begin(destination), std::end(destination), [](auto x) { std::cout << x << ", "s; });
+}
+
 int main() {
   for_each_example();
   all_of_example();
   find_example();
+  copy_example();
 }
