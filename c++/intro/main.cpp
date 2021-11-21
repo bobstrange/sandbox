@@ -236,6 +236,46 @@ void lambda() {
   std::cout << "x: "s << x << "\n"s; // x: 2
 }
 
+void struct_example() {
+  struct Point {
+    int x;
+    int y;
+  };
+
+  Point p1;
+  p1.x = 1;
+  p1.y = 2;
+
+  Point p2 = p1;
+  p2.x = 10;
+  p2.y = 20;
+
+  // 参照わたしではなく値わたし
+  std::cout << "p1.x "s << p1.x << " p1.y "s << p1.y << "\n"s;
+  std::cout << "p2.x "s << p2.x << " p2.y "s << p2.y << "\n"s;
+
+  struct Fractional {
+    int numerator;
+    int denominator;
+    double value() {
+      return static_cast<double>(numerator) / denominator;
+    }
+    void set(int numerator_) {
+      numerator = numerator_;
+    }
+    void set(int numerator_, int denominator_) {
+      numerator = numerator_;
+      denominator = denominator_;
+    }
+  };
+
+  Fractional f1{3, 7};
+  std::cout << "3/7 is "s << f1.value() << "\n"s; // 3/7 is 0.42857142857142855
+
+  f1.set(5, 8);
+  std::cout << "5/8 is "s << f1.value() << "\n"s; // 5/8 is 0.625
+}
+
 int main() {
   vars_and_funcs();
   std_err();
@@ -245,5 +285,6 @@ int main() {
   use_iterator();
   lvalue_ref();
   lambda();
+  struct_example();
 }
 
