@@ -1,4 +1,5 @@
 #include "all.h"
+#include <cstdlib>
 #include <iostream>
 
 // 関数の場合は引数は auto にはできない
@@ -276,6 +277,41 @@ void struct_example() {
   std::cout << "5/8 is "s << f1.value() << "\n"s; // 5/8 is 0.625
 }
 
+void my_array() {
+  struct array_int_3 {
+    int m0;
+    int m1;
+    int m2;
+
+    int & operator [](std::size_t i) {
+      switch (i) {
+        case 0: return m0;
+        case 1: return m1;
+        case 2: return m2;
+        default: std::abort();
+      }
+    }
+  };
+
+  struct array_int_10 {
+    int data[10];
+    int & operator [](std::size_t i) {
+      return data[i];
+    }
+  };
+}
+
+template <typename T>
+T twice(T x) {
+  return x * 2;
+}
+
+void template_example() {
+  std::cout << "twice(100) "s << twice(100) << "\n"s; // 200
+  std::cout << "twice(12.3) "s << twice(12.3) << "\n"s; // 24.6
+  std::cout << "twice<int>(12.3) "s << twice<int>(12.3) << "\n"s; // 24
+}
+
 int main() {
   vars_and_funcs();
   std_err();
@@ -286,5 +322,7 @@ int main() {
   lvalue_ref();
   lambda();
   struct_example();
+  my_array();
+  template_example();
 }
 
