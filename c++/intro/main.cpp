@@ -306,10 +306,21 @@ T twice(T x) {
   return x * 2;
 }
 
+template<typename T, std::size_t N>
+struct array {
+  T storage[N];
+  T & operator [](std::size_t i) {
+    return storage[i];
+  }
+};
+
 void template_example() {
   std::cout << "twice(100) "s << twice(100) << "\n"s; // 200
   std::cout << "twice(12.3) "s << twice(12.3) << "\n"s; // 24.6
   std::cout << "twice<int>(12.3) "s << twice<int>(12.3) << "\n"s; // 24
+
+  array<int, 3> a{1, 2, 3};
+  std::cout << "a[1] "s << a[1] << "\n"s; // 2
 }
 
 int main() {
