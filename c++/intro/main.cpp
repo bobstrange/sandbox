@@ -254,22 +254,22 @@ void struct_example() {
   std::cout << "p1.x "s << p1.x << " p1.y "s << p1.y << "\n"s;
   std::cout << "p2.x "s << p2.x << " p2.y "s << p2.y << "\n"s;
 
-  struct Fractional {
+  struct fractional {
     int numerator;
     int denominator;
     double value() {
       return static_cast<double>(numerator) / denominator;
     }
     void set(int numerator_) {
-      numerator = numerator_;
+      fractional::numerator = numerator_;
     }
     void set(int numerator_, int denominator_) {
-      numerator = numerator_;
-      denominator = denominator_;
+      fractional::numerator = numerator_;
+      fractional::denominator = denominator_;
     }
   };
 
-  Fractional f1{3, 7};
+  fractional f1{3, 7};
   std::cout << "3/7 is "s << f1.value() << "\n"s; // 3/7 is 0.42857142857142855
 
   f1.set(5, 8);
