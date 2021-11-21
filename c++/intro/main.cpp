@@ -308,8 +308,12 @@ T twice(T x) {
 
 template<typename T, std::size_t N>
 struct array {
-  T storage[N];
-  T & operator [](std::size_t i) {
+  using value_type = T;
+  using reference = T &;
+  using size_type = std::size_t;
+
+  value_type storage[N];
+  value_type & operator [](size_type i) {
     return storage[i];
   }
 };
