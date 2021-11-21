@@ -1,4 +1,5 @@
 #include "all.h"
+#include <iostream>
 
 // 関数の場合は引数は auto にはできない
 auto plus (int x, int y) {
@@ -209,6 +210,32 @@ void lvalue_ref() {
   std::cout << "x: "s << x <<  " y: "s << y << "\n"s; // x: 10 y: 10
 }
 
+void lambda() {
+  auto message = "hello lambda"s;
+
+  std::cout << "copy capture\n"s;
+
+  [=]() {
+    std::cout << message;
+  }();
+
+  std::cout << "\n"s;
+
+  std::cout << "ref capture\n"s;
+
+  int x = 0;
+
+  auto increment = [&]() {
+    ++x;
+  };
+
+  increment();
+  std::cout << "x: "s << x << "\n"s; // x: 1
+
+  increment();
+  std::cout << "x: "s << x << "\n"s; // x: 2
+}
+
 int main() {
   vars_and_funcs();
   std_err();
@@ -217,5 +244,6 @@ int main() {
   use_namespace();
   use_iterator();
   lvalue_ref();
+  lambda();
 }
 
