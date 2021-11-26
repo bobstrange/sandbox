@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include "calc.h"
 
 // Demonstrate some basic assertions.
 TEST(HelloTest, BasicAssertions) {
@@ -6,4 +7,12 @@ TEST(HelloTest, BasicAssertions) {
   EXPECT_STRNE("hello", "world");
   // Expect equality.
   EXPECT_EQ(7 * 6, 42);
+}
+
+TEST(CalcTest, OnePlusTwoEqualThree) {
+  EXPECT_EQ(sum(1, 2), 3);
+}
+
+TEST(CalcTest, ThreeByFourEqualTwelve) {
+  EXPECT_EQ(calc::multiply(3, 4), 12);
 }
