@@ -1,6 +1,7 @@
 #include "all.h"
 #include <cstdlib>
 #include <iostream>
+#include <iterator>
 
 // 関数の場合は引数は auto にはできない
 auto plus (int x, int y) {
@@ -327,6 +328,28 @@ void template_example() {
   std::cout << "a[1] "s << a[1] << "\n"s; // 2
 }
 
+void vector_example() {
+  // ref: vector の初期化 https://zenn.dev/yohhoy/articles/quiz-init-vector
+  std::vector<int> v1(2);
+  std::vector<int> v2{2};
+  std::vector<int> v3(3, 4);
+  std::vector<int> v4{3, 4};
+
+  auto print = [](auto name, auto first, auto last) {
+    std::cout << "vector "s << name << "\n"s;
+     for (auto iter = first; iter != last; ++iter) {
+      std::cout << *iter << "\n"s;
+    }
+  };
+
+  print("v1"s, std::begin(v1), std::end(v1));
+  print("v2"s, std::begin(v2), std::end(v2));
+  print("v3"s, std::begin(v3), std::end(v3));
+  print("v4"s, std::begin(v4), std::end(v4));
+
+
+}
+
 int main() {
   vars_and_funcs();
   std_err();
@@ -339,5 +362,6 @@ int main() {
   struct_example();
   my_array();
   template_example();
+  vector_example();
 }
 
