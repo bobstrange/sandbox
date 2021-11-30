@@ -342,12 +342,23 @@ void vector_example() {
     }
   };
 
-  print("v1"s, std::begin(v1), std::end(v1));
-  print("v2"s, std::begin(v2), std::end(v2));
-  print("v3"s, std::begin(v3), std::end(v3));
-  print("v4"s, std::begin(v4), std::end(v4));
+  print("v1"s, std::begin(v1), std::end(v1)); // {0, 0}
+  print("v2"s, std::begin(v2), std::end(v2)); // {2}
+  print("v3"s, std::begin(v3), std::end(v3)); // {4, 4, 4}
+  print("v4"s, std::begin(v4), std::end(v4)); // {3, 4}
+}
 
+void array_example() {
+  std::array<int, 3> a1{1};
 
+  auto print = [](auto name, auto first, auto last) {
+    std::cout << "array "s << name << "\n"s;
+     for (auto iter = first; iter != last; ++iter) {
+      std::cout << *iter << "\n"s;
+    }
+  };
+
+  print("a1"s, std::begin(a1), std::end(a1));
 }
 
 int main() {
@@ -363,5 +374,6 @@ int main() {
   my_array();
   template_example();
   vector_example();
+  array_example();
 }
 
