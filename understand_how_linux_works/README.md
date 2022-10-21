@@ -118,3 +118,58 @@ Average:          0     63.85      0.00     36.15      0.00      0.00      0.00
 
 すると %system の割合が増える
 
+### ライブラリ
+
+`ldd` コマンドで、shared object の依存を表示できる
+
+```bash
+ldd /usr/bin/ruby
+        linux-vdso.so.1 (0x00007ffca9bfe000)
+        libruby-2.7.so.2.7 => /lib/x86_64-linux-gnu/libruby-2.7.so.2.7 (0x00007f65638d1000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f65636df000)
+        libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f65636bc000)
+        librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f65636b2000)
+        libgmp.so.10 => /lib/x86_64-linux-gnu/libgmp.so.10 (0x00007f656362e000)
+        libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f6563628000)
+        libcrypt.so.1 => /lib/x86_64-linux-gnu/libcrypt.so.1 (0x00007f65635eb000)
+        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f656349c000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f6563c31000)
+```
+
+`libc` 標準 C ライブラリや、システムコールのラッパー関数を提供
+
+### 静的ライブラリと共有ライブラリ
+
+- プログラムの生成
+  - ソースコードをコンパイル -> オブジェクトファイル
+  - オブジェクトファイルが使うライブラリをリンク -> 実行ファイル
+
+静的ライブラリのリンク -> リンク時にプログラムに組み込まれる
+共有ライブラリのリンク -> リンク時にプログラムに I/F の情報だけ組み込まれる
+
+例: [pause.c](./src/004_pause.c)
+
+libc の静的ライブラリ `libc.a` を使う場合
+コンパイルしたあと `ls -l` でサイズを `ldd` で共有オブジェクトの依存を表示
+
+```bash
+cc -static -o pause src/004_pause.c
+ls -l pause
+-rwxrwxr-x 1 vagrant vagrant 871832 Oct 21 14:39 pause
+ldd pause
+        not a dynamic executable
+```
+
+`libc.so` を使う場合
+
+```bash
+cc -o pause src/004_pause.c
+ls -l pause
+-rwxrwxr-x 1 vagrant vagrant 16704 Oct 21 14:44 pause
+ldd pause
+        linux-vdso.so.1 (0x00007fff3f5dc000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb02f3a8000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fb02f5ac000)
+```
+
+`ls -l` でサイズを確認すると小さくなっており、 `ldd` で共有ライブラリが使われていることがわかる。
