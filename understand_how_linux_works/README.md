@@ -253,3 +253,24 @@ vagrant@vagrant:~$ cat /proc/3950/maps
 00403000-00404000 r--p 00002000 fd:00 1333442                            /home/vagrant/pause
 00404000-00405000 rw-p 00003000 fd:00 1333442                            /home/vagrant/pause
 ```
+
+### プロセスの親子関係
+
+`pstree -p` コマンドでプロセスの親子関係を木構造で表示できる ( `-p` で pid を表示)
+
+`ps aux` コマンドの結果
+
+- `START` -> 起動した時刻
+- `TIME` -> 使用した CPU 時間
+- `STAT`
+  - 1 文字目が `S` スリープ
+  - 1 文字目が `R` 実行可能状態
+  - ゾンビ状態 `Z`
+
+```bash
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  1.1 101992 11380 ?        Ss   13:48   0:01 /sbin/init
+root           2  0.0  0.0      0     0 ?        S    13:48   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        I<   13:48   0:00 [rcu_gp]
+root           4  0.0  0.0      0     0 ?        I<   13:48   0:00 [rcu_par_gp]
+```
