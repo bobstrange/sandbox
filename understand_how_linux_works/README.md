@@ -189,3 +189,67 @@ ldd pause
 3. 親プロセス、子プロセスが `fork()` 関数から復帰する
   - 親プロセスは戻り値として子プロセスの PID 子プロセスは 0 を得る
   - [fork.py](./src/005_fork.py) の例を見ると良い
+
+`execve()` -> 別のプログラムを起動する (別のプログラムでメモリを置き換える)
+
+1. `execve()` 関数を呼び出す
+2. `execve()` 関数の引数で指定した実行ファイルからプログラムを読み出して、メモリ上に配置するために必要な情報を読み出す
+3. 現在のプロセスのメモリを新しいプロセスのデータで上書きする
+4. プロセスを新しいプロセスのエントリポイントから実行開始する
+  - [fork-and-exec.py](src/006_fork-and-exec.py) の例
+
+実行ファイルが保持する情報
+実行ファイルのフォーマット Exectable and Linking Format (ELF) の情報は `readelf` コマンドで得られる
+
+```bash
+readelf -h /usr/bin/ruby
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x11a0
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          12632 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         13
+  Size of section headers:           64 (bytes)
+  Number of section headers:         29
+  Section header string table index: 28
+```
+
+`-S` オプションで、コードとデータのオフセット、サイズ、開始アドレスが確認できる
+`.text` と `.data`
+
+```bash
+readelf -S pause
+There are 31 section headers, starting at offset 0x3938:
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [15] .text             PROGBITS         0000000000401050  00001050
+       0000000000000175  0000000000000000  AX       0     0     16
+  [25] .data             PROGBITS         0000000000404020  00003020
+       0000000000000010  0000000000000000  WA       0     0     8
+```
+
+プロセスのメモリマップを見てみる `/proc/<pid>/maps` と、↑で確認したアドレス内にコード(00401050)とデータ(00404020) がおさまっていることが確認できる
+
+```bash
+vagrant@vagrant:~$ ./pause &
+[1] 3950
+vagrant@vagrant:~$ cat /proc/3950/maps
+00400000-00401000 r--p 00000000 fd:00 1333442                            /home/vagrant/pause
+00401000-00402000 r-xp 00001000 fd:00 1333442                            /home/vagrant/pause
+00402000-00403000 r--p 00002000 fd:00 1333442                            /home/vagrant/pause
+00403000-00404000 r--p 00002000 fd:00 1333442                            /home/vagrant/pause
+00404000-00405000 rw-p 00003000 fd:00 1333442                            /home/vagrant/pause
+```
