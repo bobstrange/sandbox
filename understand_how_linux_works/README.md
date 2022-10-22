@@ -334,3 +334,57 @@ vagrant@vagrant:~$ jobs
 [1]-  Running                 sleep infinity &
 [2]+  Running                 sleep infinity &
 ```
+### セッション
+
+セッションは、端末エミュレータや ssh などをとうしてシステムにログインしたときのログインに対応するもの。
+すべてのセッションにはセッションを制御するための端末が紐付いている。
+
+通常は pty/<n> という名前の仮想端末がそれぞれのセッションに割り当てられる。
+(`pty` は何のことかわかっていなかったが、仮想端末だったのね)
+
+例
+
+- セッション A
+  - ログインシェル: bash
+  - vim で go を開発しており、go build を事項中
+- セッション B
+  - ログインシェル: zsh
+  - ps aux を実行して less で見ている
+- セッション C
+  - ログインシェル: zsh
+  - calc という計算プログラムを実行
+
+セッションA -> 端末 pty/0
+セッションB -> 端末 pty/1
+セッションC -> 端末 pty/2
+
+セッションにはセッションリーダープロセスが存在、通常は bash などのシェル
+`ps ajx` で確認できる
+
+```bash
+ps ajx
+
+PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND
+
+...
+
+3563    3564    3564    3564 pts/0       4094 Ss    1000   0:00 -bash           # <= セッションリーダー SID 3564
+3564    4070    4070    3564 pts/0       4094 S     1000   0:00 sleep infinity
+3564    4071    4071    3564 pts/0       4094 S     1000   0:00 sleep infinity
+3564    4094    4094    3564 pts/0       4094 R+    1000   0:00 ps ajx
+```
+
+ここで別で ssh でログインして `ps ajx` を実行すると、別のセッションができていることがわかる。
+
+```bash
+ps ajx
+
+PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND
+
+...
+
+4137    4138    4138    4138 pts/1       4147 Ss    1000   0:00 -bash           # <= セッションリーダー SID 4138
+4138    4147    4147    4138 pts/1       4147 R+    1000   0:00 ps ajx
+```
+
+`TTY` に書いてあるのが端末の名前、 `SID: 3564` の方は、 `pts/0`, `SID: 4138` の方は `pts/1` になっている。
