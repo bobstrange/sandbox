@@ -424,3 +424,24 @@ PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND
 - バックグラウンドプロセスグループ
   - バックグラウンドジョブ
   - バックグラウンドプロセスが端末を操作しようとすると `SIGSTOP` を受けたときのように実行が一時的に中断され、 `fg` などによりフォアグラウンドプロセスグループになるまでこの状態が続く
+
+### daemon
+
+daemon -> 常駐プロセス
+
+特徴
+
+- 端末から入出力する必要がないため、端末が割り当てられていない
+- あらゆるログインセッションが終了しても影響を受けないように、独自のセッションを持つ
+- daemon を生成したプロセスが、daemon の終了を気にしなくて良いように init が親になっている
+
+`sshd` の例 -> PPID が 1 (init) SID も自分の PID と一緒
+daemon は端末を持たないので、慣習として `SIGHUP` を設定ファイルの読み込み直しのシグナルとして使うことが多い
+
+```bash
+ps ajx
+
+PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND
+...
+   1     723     723     723 ?             -1 Ss       0   0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+```
