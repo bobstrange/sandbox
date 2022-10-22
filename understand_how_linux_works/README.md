@@ -305,3 +305,32 @@ root           4  0.0  0.0      0     0 ?        I<   13:48   0:00 [rcu_par_gp]
 `SIGKILL`: 死なないプロセスを強制終了する
 
 プロセスはシグナルハンドラを登録して、シグナルを受け取った際の動作を設定できる
+
+```bash
+# background job 実行
+sleep infinity &
+[1] 4070
+# もう一つ実行
+sleep infinity &
+[2] 4071
+# jobs で background jobs を確認できる
+jobs
+[1]-  Running                 sleep infinity &
+[2]+  Running                 sleep infinity &
+# fg <job_id> で foreground に持ってこられる
+fg 1
+sleep infinity
+# Ctrl-Z で SIGSTOP を送って一時停止する
+^Z
+[1]+  Stopped                 sleep infinity
+# jobs を確認すると job 1 は停止している
+jobs
+[1]+  Stopped                 sleep infinity
+[2]-  Running                 sleep infinity &
+# SIGCONT を送信して再開する
+kill -CONT 4070
+# job_id 1 が再開されている
+vagrant@vagrant:~$ jobs
+[1]-  Running                 sleep infinity &
+[2]+  Running                 sleep infinity &
+```
