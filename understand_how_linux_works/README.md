@@ -478,3 +478,57 @@ sys     0m0.000s
 ```
 
 CPU をほぼ使わない `sleep` だと↑のようになる
+
+並列実行をするスクリプト [multiload.sh](./src/009_multiload.sh) を実行すると 1 CPU では、並行度を増やすと user の時間はほぼ変わらないが実際に処理にかかる時間 real 2 倍、3 倍になる
+
+```bash
+src/009_multiload.sh 3
+
+real    0m7.091s
+user    0m2.365s
+sys     0m0.000s
+
+real    0m7.121s
+user    0m2.379s
+sys     0m0.000s
+
+real    0m7.244s
+user    0m2.503s
+sys     0m0.000s
+```
+
+複数 CPU を使う様にする
+仮想マシンの VCPU が 2 なので↓のようになる。
+3 の場合も CPU を使い切り 2/3 の時間で終わっている
+
+```bash
+src/009_multiload.sh -m 1
+
+real    0m2.306s
+user    0m2.306s
+sys     0m0.000s
+
+src/009_multiload.sh -m 2
+
+real    0m2.450s
+user    0m2.442s
+sys     0m0.008s
+
+real    0m2.509s
+user    0m2.500s
+sys     0m0.000s
+
+src/009_multiload.sh -m 3
+
+real    0m3.594s
+user    0m2.520s
+sys     0m0.000s
+
+real    0m3.614s
+user    0m2.397s
+sys     0m0.012s
+
+real    0m3.861s
+user    0m2.540s
+sys     0m0.004s
+```
