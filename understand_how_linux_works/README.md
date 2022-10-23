@@ -445,3 +445,36 @@ PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND
 ...
    1     723     723     723 ?             -1 Ss       0   0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
 ```
+
+## プロセススケジューラー
+
+1 つの論理 CPU 上で同時に動くプロセスは 1 つだけ
+実行可能な複数のプロセスに、タイムスライスと呼ばれる単位で順番に CPU を使わせる
+
+### 経過時間と使用時間
+
+適度な回数空ループをする[load.py](src/008_load.py) を `time` コマンドつきで実行
+
+```bash
+time ./src/008_load.py
+
+real    0m2.455s
+user    0m2.435s
+sys     0m0.019s
+```
+
+real -> 経過時間
+user -> プロセスがユーザーランドで動作していた時間
+sys -> プロセスによるシステムコールで、カーネルが動作していたときの時間
+
+プロセスの開始時や、終了時に Python インタープリタがシステムコールを実行する分 sys の時間も多少ある
+
+```bash
+time sleep 3
+
+real    0m3.001s
+user    0m0.001s
+sys     0m0.000s
+```
+
+CPU をほぼ使わない `sleep` だと↑のようになる
