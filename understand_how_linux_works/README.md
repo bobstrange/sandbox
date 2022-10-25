@@ -576,3 +576,28 @@ p75 参照
                 <---------------- available ------------------>
 <-- 解放不可 --><-- 解放可能 --><---------- free -------------><--------- プロセスが使用中 ----------->
         <- buff/cache ->
+
+used
+
+[memuse.py](src/04-01_memuse.py) で
+メモリを確保する前に free を実行し、適当にメモリを確保後に free を再度実行したときの挙動
+
+メモリ確保後は、`used` が  81MiB ((298412 - 215372) / 1024) 程度増加
+プログラム終了後に free を実行すると used の値はほぼ元に戻る
+
+```bash
+./src/04-01_memuse.py
+メモリ確保前のシステム全体のメモリ使用量
+              total        used        free      shared  buff/cache   available
+Mem:        1000068      215372      105452        1000      679244      633292
+Swap:       1999868         780     1999088
+メモリ確保後のシステム全体のメモリ使用量
+              total        used        free      shared  buff/cache   available
+Mem:        1000068      298412       63860        1000      637796      551944
+Swap:       1999868         780     1999088
+
+free
+              total        used        free      shared  buff/cache   available
+Mem:        1000068      211816      182860         972      605392      639040
+Swap:       1999868         780     1999088
+```
