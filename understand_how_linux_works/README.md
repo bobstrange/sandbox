@@ -601,3 +601,29 @@ free
 Mem:        1000068      211816      182860         972      605392      639040
 Swap:       1999868         780     1999088
 ```
+
+buff/cache
+
+ストレージアクセス >> メモリアクセス なので、ストレージのデータをメモリーに乗せるとメモリ上にデータをキャッシュしておく
+[buff-cache.sh](src/04-02_buff-cache.sh) を実行すると
+100 MiB のファイルを作成する時点で buff/cache が 100 MiB 増え、ファイルを削除した時点で、buff/cache が 100 MiB 減る
+
+```bash
+/src/04-02_buff-cache.sh
+ファイル作成前のメモリ使用量を表示
+              total        used        free      shared  buff/cache   available
+Mem:        1000068      198804      358792        1012      442472      653836
+Swap:       1999868         524     1999344
+100 MiB のファイルを新規作成 -> カーネルは 100 MiB のページキャッシュを確保
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 0.0532288 s, 2.0 GB/s
+ページキャッシュ確保後のメモリ使用量を表示
+              total        used        free      shared  buff/cache   available
+Mem:        1000068      198904      253564        1012      547600      652312
+Swap:       1999868         524     1999344
+ファイルを削除 -> カーネルは 100 MiB のページキャッシュを解放後のメモリ使用量を表示
+              total        used        free      shared  buff/cache   available
+Mem:        1000068      199612      357848        1012      442608      652932
+Swap:       1999868         524     1999344
+```
