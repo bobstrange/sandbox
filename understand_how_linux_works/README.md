@@ -647,3 +647,35 @@ free メモリが少なくなってきた場合に、カーネルは buff/cache 
 
 それでもメモリが足りない場合は、OOM (Out Of Memory) 状態になり、OOM Killer によりプロセスが強制終了されてプロセスが使用していたメモリを解放しようとする。
 OOM Killer が動作した後は、`dmesg` で見られるカーネルログに、ログが残る。
+
+### 仮想記憶
+
+仮想記憶が無いと
+
+- メモリの断片化
+- マルチプロセスの実現
+- 不正な領域へのアクセス
+
+の課題がある。
+
+仮想記憶: プロセスがメモリにアクセスする際に、システムに搭載されているメモリ(物理アドレス)に直接アクセスさせるのではなく、仮想アドレスを用いて間接的にアクセスさせる。
+
+### ページテーブル
+
+仮想アドレスから物理アドレスへの変換表
+ページのサイズ x86_64 なら 4KiB
+
+ページテーブルの仮想アドレスに対応する物理アドレスが未割り当ての場合、その仮想アドレスにプロセスがアクセスすると CPU 上で page fault 例外が発生し、CPU で実行中の命令が中断され、カーネルのメモリに配置された page fault handler が実行される。
+
+不正なアドレスにアクセスする [`segv`](./src/04-03_segv.go) と page fault handler は `SIGSEGV` シグナルをプロセスに送信し、プロセスは強制終了される。
+
+```bash
+./04-03_segv
+不正メモリアクセス前
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x48cf0b]
+
+goroutine 1 [running]:
+main.main()
+        /home/vagrant/src/04-03_segv.go:8 +0x7b
+```
