@@ -6,3 +6,10 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem 'aws-sdk-s3', '~> 1'
 gem 'dotenv'
+
+group :development do
+  gem 'rubocop', require: false
+  gem 'solargraph', require: false
+  gem 'pry'
+  gem 'pry-byebug'
+end
