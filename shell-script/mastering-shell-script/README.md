@@ -1,5 +1,8 @@
 # Mastering shell script memo
 
+対応する英語が必要な場合はを参照する
+[ref (bash man)](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html)
+
 ## Chapter 1
 
 ### コマンドの種類を判定する `type` command
@@ -77,4 +80,14 @@ unset myarr[1]
 
 # 全ての要素を削除
 unset myarr
+```
+
+### コマンド置換
+
+```bash
+# $()
+current_dir1=$(pwd)
+
+# ``
+current_dir2=`pwd`
 ```
