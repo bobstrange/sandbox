@@ -137,3 +137,26 @@ fi
 + echo 'Today is Sunday: 2023-01-29T01:08:50+09:00'
 Today is Sunday: 2023-01-29T01:08:50+09:00
 ```
+
+### VSCode Bash Debug
+
+- VSCode の Bash Debug Extension をインストール
+- コマンドパレットで `Debug:AddConfiguration` -> `Bash Debug` を選択し、設定を作る
+  - .vscode/launch.json に debug 用の設定が追加される
+
+```jsonc
+{
+ "version": "0.2.0",
+ "configurations": [
+  {
+    "type": "bashdb",
+    "request": "launch",
+    "name": "Bash-Debug (simplest configuration)",
+    "program": "${file}",
+    "cwd": "${fileDirname}"
+  }
+ ]
+}
+```
+
+`cwd` に、`${fileDirname}` を設定しておくことで、shellscript を開いた状態で `F5` で debug ができる
