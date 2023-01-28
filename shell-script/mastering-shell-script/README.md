@@ -102,3 +102,38 @@ current_dir2=`pwd`
 > 3. It's exceptionally hard to nest.
 
 未定義の振る舞い、想定しづらい escape の mode がある、Nest したときに読みづらい
+
+### Debug
+
+`bash -x`
+コマンドが実行されたときのコマンドを表示する
+(評価結果なども表示される)
+
+分岐などを追う時に便利
+
+例: bin/debug.sh
+
+```bash
+#!/bin/bash
+
+# %w   週の何日目かを表す値 (0..6); 0 を日曜日とする
+day_of_the_week=$(date +%w)
+date=$(date --iso-8601='seconds')
+
+if [ "${day_of_the_week}" -eq 0 ]; then
+  echo "Today is Sunday: ${date}"
+else
+  echo "Today is not Sunday: ${date}"
+fi
+```
+
+```bash
+❯ bash -x ./bin/debug.sh
+++ date +%w
++ day_of_the_week=0
+++ date --iso-8601=seconds
++ date=2023-01-29T01:08:50+09:00
++ '[' 0 -eq 0 ']'
++ echo 'Today is Sunday: 2023-01-29T01:08:50+09:00'
+Today is Sunday: 2023-01-29T01:08:50+09:00
+```
