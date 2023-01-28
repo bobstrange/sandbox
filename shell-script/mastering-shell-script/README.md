@@ -59,3 +59,22 @@ echo "\$(basename \$0) is $(basename ${0})"
 ❯ ./bin/script_name.sh
 $(basename $0) is script_name.sh
 ```
+
+### 配列
+
+```bash
+# 定義
+myarr=(foo bar baz qux)
+
+# n 番目の要素
+echo ${myarr[1]}
+
+# 全部の要素
+echo ${myarr[*]}
+
+# 特定の要素を削除
+unset myarr[1]
+
+# 全ての要素を削除
+unset myarr
+```
