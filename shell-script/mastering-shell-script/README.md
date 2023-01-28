@@ -84,6 +84,11 @@ unset myarr
 
 ### コマンド置換
 
+[Command Substitution](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Command-Substitution)
+[SC2006](https://www.shellcheck.net/wiki/SC2006)
+
+backticks `` より、$() が推奨されている
+
 ```bash
 # $()
 current_dir1=$(pwd)
@@ -91,3 +96,9 @@ current_dir1=$(pwd)
 # ``
 current_dir2=`pwd`
 ```
+
+> 1. It has a series of undefined behaviors related to quoting in POSIX.
+> 2. It imposes a custom escaping mode with surprising results.
+> 3. It's exceptionally hard to nest.
+
+未定義の振る舞い、想定しづらい escape の mode がある、Nest したときに読みづらい
