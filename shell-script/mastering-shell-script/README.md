@@ -160,3 +160,24 @@ Today is Sunday: 2023-01-29T01:08:50+09:00
 ```
 
 `cwd` に、`${fileDirname}` を設定しておくことで、shellscript を開いた状態で `F5` で debug ができる
+
+## Chapter 2
+
+### echo コマンド
+
+デフォルトの挙動は、引数 + 改行を出力
+
+```bash
+# 標準
+❯ echo "Example text"
+Example text
+
+# -n で改行が出力されない
+❯ echo -n "Example text"
+Example text%
+
+# -e + \c (これ以上の文字を出力しない)
+❯ echo -e "Example text\c aaaaa"
+Example text%
+```
+
