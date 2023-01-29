@@ -181,3 +181,27 @@ Example text%
 Example text%
 ```
 
+### read コマンド
+
+`read` コマンドはシェル組み込みコマンド
+
+`-n` で入力文字数を制限
+※ zsh では `-k`
+`-p` でプロンプトの文字を設定
+※ zsh では `変数名?プロンプト`
+
+[ref(zsh shell builtin command)](https://zsh.sourceforge.io/Doc/Release/Shell-Builtin-Commands.html)
+
+```bash
+read -p "Please enter your name: " name
+echo "Hi ${name}!"
+
+read -n1 -p "Press any key to exit"
+echo "Bye!"
+```
+
+入力の可視性を制御することもできる
+
+```bash
+read -s -p "Please enter password:" password
+```
