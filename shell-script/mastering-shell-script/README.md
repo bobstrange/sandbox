@@ -205,3 +205,45 @@ echo "Bye!"
 ```bash
 read -s -p "Please enter password:" password
 ```
+
+### オプション
+
+```bash
+
+while [ -n "${1}" ]; do
+  case "${1}" in
+    -a) echo "-a option used" ;;
+    # 引数が値を受け取るケース
+    -b) param=${2}
+        echo "-b option used with value ${param}" ;;
+    -c) echo "-c option used" ;;
+    # -- 以降はオプションをチェックしない
+    --) shift
+        break ;;
+  esac
+  shift
+done
+
+num=1
+
+for param in $@; do
+  echo "num: ${num}: ${param}"
+  num=$(( num + 1 ))
+done
+
+```
+
+```bash
+❯ bin/option_parse.sh -a -b p1 -c -- p1 p3
+-a option used
+-b option used with value p1
+-c option used
+num: 1: p1
+num: 2: p3
+```
+
+[Shell builtin commands](https://www.gnu.org/software/bash/manual/bash.html#Shell-Builtin-Commands)
+
+> Unless otherwise noted, each builtin command documented as accepting options preceded by ‘-’ accepts ‘--’ to signify the end of the options. The :, true, false, and test/[ builtins do not accept options and do not treat ‘--’ specially. The exit, logout, return, break, continue, let, and shift builtins accept and process arguments beginning with ‘-’ without requiring ‘--’. Other builtins that accept arguments but are not specified as accepting options interpret arguments beginning with ‘-’ as invalid options and require ‘--’ to prevent this interpretation.
+
+`--` (double dash) を渡すことで、オプションがこれ以降受け付けないということを示す。
