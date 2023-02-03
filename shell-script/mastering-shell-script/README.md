@@ -270,3 +270,19 @@ echo $?
 ```bash
 test ${PWD} == ${HOME} || cd ${HOME}
 ```
+
+### test command
+
+```bash
+test EXPRESSION
+
+# 真偽の反転 (※ ! と EXPRESSION の間に半角スペースが必要)
+test ! EXPRESSION
+
+# 複数条件
+## and
+test EXPRESSION -a EXPRESSION
+## or
+test EXPRESSION -o EXPRESSION
+```
+
