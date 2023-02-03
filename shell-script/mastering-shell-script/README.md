@@ -247,3 +247,26 @@ num: 2: p3
 > Unless otherwise noted, each builtin command documented as accepting options preceded by ‘-’ accepts ‘--’ to signify the end of the options. The :, true, false, and test/[ builtins do not accept options and do not treat ‘--’ specially. The exit, logout, return, break, continue, let, and shift builtins accept and process arguments beginning with ‘-’ without requiring ‘--’. Other builtins that accept arguments but are not specified as accepting options interpret arguments beginning with ‘-’ as invalid options and require ‘--’ to prevent this interpretation.
 
 `--` (double dash) を渡すことで、オプションがこれ以降受け付けないということを示す。
+
+### オプションを解析するコマンド getopt / getopts
+
+[ref(シェルスクリプト オプション解析 徹底解説 (getopt / getopts))](https://qiita.com/ko1nksm/items/cea7e7cfdc9e25432bab#getopt-%E3%81%A8-getopts-%E3%81%AE%E9%81%95%E3%81%84)
+
+基本的には、→の方が高機能
+「getopt（オリジナル版）」<「getopts」<「getopt（GNU版）」
+
+## Chapter 3
+
+### 実行パス
+
+最後に実行したコマンドの exit code を表示する
+
+```bash
+echo $?
+```
+
+例: 特定のディレクトリにいるかチェックして、移動する
+
+```bash
+test ${PWD} == ${HOME} || cd ${HOME}
+```
