@@ -286,3 +286,19 @@ test EXPRESSION -a EXPRESSION
 test EXPRESSION -o EXPRESSION
 ```
 
+#### 文字列の比較
+
+```bash
+[ "${USER}" == root ]
+[ ! "${USER}" == root ]
+
+# 文字列長が 0 より大きいか?
+[ -n "something" ] #=> 0
+[ -n "" ]          #=> 1
+
+# 文字列長が 0 か
+[ -z "" ]          #=> 0
+[ -z "something" ] #=> 1
+```
+
+
