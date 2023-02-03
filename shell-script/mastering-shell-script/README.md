@@ -288,9 +288,13 @@ test EXPRESSION -o EXPRESSION
 
 #### 文字列の比較
 
+`==` は `bash` 特有
+
+[参考](https://stackoverflow.com/a/20449556/2571636)
+
 ```bash
-[ "${USER}" == root ]
-[ ! "${USER}" == root ]
+[ "${USER}" = root ]
+[ ! "${USER}" = root ]
 
 # 文字列長が 0 より大きいか?
 [ -n "something" ] #=> 0
@@ -301,4 +305,19 @@ test EXPRESSION -o EXPRESSION
 [ -z "something" ] #=> 1
 ```
 
+### 整数の比較
 
+```bash
+# equal to
+[ num1 -eq num2 ]
+# not equal to
+[ num1 -ne num2 ]
+# greater than or equal to
+[ num1 -ge num2 ]
+# greater than
+[ num1 -gt num2 ]
+# less than or equal to
+[ num1 -le num2 ]
+# less than
+[ num1 -lt num2 ]
+```
