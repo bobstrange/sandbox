@@ -282,8 +282,10 @@ test ! EXPRESSION
 # 複数条件
 ## and
 test EXPRESSION -a EXPRESSION
+[ EXPRESSION ] && [ EXPRESSION ]
 ## or
 test EXPRESSION -o EXPRESSION
+[ EXPRESSION ] || [ EXPRESSION ]
 ```
 
 #### 文字列の比較
@@ -294,7 +296,11 @@ test EXPRESSION -o EXPRESSION
 
 ```bash
 [ "${USER}" = root ]
+
+# 否定
 [ ! "${USER}" = root ]
+[ "${USER}" != root ]
+! [ "${USER}" = root ]
 
 # 文字列長が 0 より大きいか?
 [ -n "something" ] #=> 0
