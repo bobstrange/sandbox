@@ -321,3 +321,19 @@ test EXPRESSION -o EXPRESSION
 # less than
 [ num1 -lt num2 ]
 ```
+
+### ファイルの比較
+
+```bash
+# ディレクトリかどうか directory
+[ -d /home ]
+
+# ファイルが存在するかどうか exists
+[ -e /bin/bash]
+[ -e /home ]
+[ -e /hoge ]
+
+# ファイルが通常のファイルかどうか
+[ -f /home ]
+[ -f /bin/bash ]
+```
