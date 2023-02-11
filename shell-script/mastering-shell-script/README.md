@@ -355,9 +355,11 @@ test EXPRESSION -o EXPRESSION
 ```bash
 [ -z "$name" ] && name="default value"
 
-# パラメーター置換
+# パラメーター置換 (parameter substitution)
 name=${parameter-"default value"}
 # ヌル値を持つパラメーターが宣言されている場合
 parameter=
 ${parameter:-default}
 ```
+
+[ref (parameter substitution)](https://tldp.org/LDP/abs/html/parameter-substitution.html)
