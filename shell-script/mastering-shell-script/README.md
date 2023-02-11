@@ -372,7 +372,7 @@ ${parameter:-default}
 (失敗する)
 
 ```bash
-echo "The file contentes" > "my file"
+echo "The file contents" > "my file"
 FILE="my file"
 [ -f $FILE -a -r $FILE ] && cat $FILE
 ```
@@ -385,3 +385,28 @@ FILE="my file"
 ```
 
 [Shell Check (SC2086)](https://www.shellcheck.net/wiki/SC2086) でも怒ってくれる
+
+### `[[` を使ったテスト
+
+`sh` では使用できないが `bash` や `zsh` で高度な条件を使ってテストができる
+
+- 空白を含む変数を `""` で囲んでいなくても、パラメータ展開される際に単一の引数として解釈される
+- `-a` や `-o` ではなく `&&` や `||` が使用できる
+
+```bash
+echo "The file contents" > "my file"
+FILE="my file"
+[[ -f $FILE && -f $FILE ]] && cat "${FILE}"
+```
+
+その他 **パターンマッチング** や
+
+```bash
+[[ ${FILE} = *.rb ]] && cp "${FILE}" scripts/
+```
+
+**正規表現** が使用ｄけいる
+
+```bash
+[[ ${FILE} =~ \.rb$ ]] && cp "${FILE}" scripts/
+```
