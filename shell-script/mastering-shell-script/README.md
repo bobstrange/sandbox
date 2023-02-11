@@ -343,3 +343,21 @@ test EXPRESSION -o EXPRESSION
 [ -f /home ]
 [ -f /bin/bash ]
 ```
+
+## Chapter 5
+
+### 特殊パラメーター
+
+`$-` 設定されているシェルオプションを表示
+
+### デフォルト値
+
+```bash
+[ -z "$name" ] && name="default value"
+
+# パラメーター置換
+name=${parameter-"default value"}
+# ヌル値を持つパラメーターが宣言されている場合
+parameter=
+${parameter:-default}
+```
