@@ -363,3 +363,25 @@ ${parameter:-default}
 ```
 
 [ref (parameter substitution)](https://tldp.org/LDP/abs/html/parameter-substitution.html)
+
+### パラメータ展開と引用符
+
+[Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html)
+
+↓ のようなスクリプトは、パラメータが展開される時にスペースが含まれているため、スペースによって引数が区切られてしまい予期しない動作をする。
+(失敗する)
+
+```bash
+echo "The file contentes" > "my file"
+FILE="my file"
+[ -f $FILE -a -r $FILE ] && cat $FILE
+```
+
+以下のように、 `""` で囲むことで予期した通りの動作になる。
+
+```bash
+FILE="my file"
+[ -f "${FILE}" -a -r "${FILE}" ] && cat "${FILE}"
+```
+
+[Shell Check (SC2086)](https://www.shellcheck.net/wiki/SC2086) でも怒ってくれる
