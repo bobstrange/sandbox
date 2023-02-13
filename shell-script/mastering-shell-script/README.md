@@ -436,4 +436,44 @@ done
 for user in $(who | cut -f1 -d" "); do
   lsof -u "${user}" -a -c bash | grep cwd
 done
+
+for var in one "this is two" three "this is four"; do
+  echo "var: ${var}"
+done
+```
+
+### IFS (Internal field separator)
+
+IFS -> フィールドを区切るための文字
+デフォルトはスペースと、タブと改行
+
+```bash
+data=$(cat <<EOF
+Hello, this is a test
+This is the second line
+And this is the last one
+EOF
+)
+
+for var in $(echo ${data}); do
+  echo "${var}"
+done
+Hello,
+this
+is
+a
+...
+```
+
+初めに見つかった `IFS` に設定された文字がスペースだったので、スペースが区切り文字として扱われた。
+
+```bash
+# IFS を改行に変更
+IFS=$'\n'
+for var in $(echo ${data}); do
+  echo "line: ${var}"
+done
+line:   Hello, this is a test
+line:   This is the second line
+line:   And this is the last one
 ```
