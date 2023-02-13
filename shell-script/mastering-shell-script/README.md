@@ -410,3 +410,18 @@ FILE="my file"
 ```bash
 [[ ${FILE} =~ \.rb$ ]] && cp "${FILE}" scripts/
 ```
+
+### `(( expression ))` arithmetic expression (算術演算)
+
+```bash
+(( a = 1 + 2 ))
+let a=1+2
+a=$(( 1 + 1 ))
+```
+
+`-gt` などを `>` に置き換えられる
+
+```bash
+COUNT=2
+(( COUNT > 1 )) && echo "Count is greater than 1"
+```
