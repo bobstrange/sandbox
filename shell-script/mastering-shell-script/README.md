@@ -425,3 +425,15 @@ a=$(( 1 + 1 ))
 COUNT=2
 (( COUNT > 1 )) && echo "Count is greater than 1"
 ```
+
+## Chapter 6
+
+```bash
+for user in alice bob john; do
+  echo "Hello ${user}"
+done
+
+for user in $(who | cut -f1 -d" "); do
+  lsof -u "${user}" -a -c bash | grep cwd
+done
+```
