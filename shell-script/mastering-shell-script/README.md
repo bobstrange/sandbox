@@ -477,3 +477,14 @@ line:   Hello, this is a test
 line:   This is the second line
 line:   And this is the last one
 ```
+
+↓のようにして IFS を初期化できる
+`local IFS=$' \t\n'    # normalize IFS`
+
+### C 言語スタイルの for ループ
+
+```bash
+for (( v=0; v < 10; v++ )); do
+  echo "v: ${v}"
+done
+```
