@@ -488,3 +488,22 @@ for (( v=0; v < 10; v++ )); do
   echo "v: ${v}"
 done
 ```
+
+### ループの制御
+
+```bash
+# 結果を result.txt に吐き出す
+for (( v=0; v < 5; v++ )); do
+  echo "${v}"
+done > result.txt
+
+for f in *; do
+  # continue で後続を skip して次のループ
+  [[ -d "${f}" ]] || continue
+  chmod 3777 "${f}"
+done
+```
+
+
+
+```
