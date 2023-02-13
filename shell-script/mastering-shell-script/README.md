@@ -502,8 +502,19 @@ for f in *; do
   [[ -d "${f}" ]] || continue
   chmod 3777 "${f}"
 done
+
+for f in *; do
+  [[ -d "${f}" ]] && break
+done
+
+echo "Found a directory ${f}"
 ```
 
+### ファイルからの入力の読み込み
 
-
+```bash
+while read server; do
+  ping -c1 ${server} && servers_up="${servers_up} ${server}"
+  echo ${server}
+done < servers.txt
 ```
