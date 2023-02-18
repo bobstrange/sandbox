@@ -573,3 +573,24 @@ myfunc2
 echo "${my_value}"
 # => updated (更新されない)
 ```
+
+### 関数からの値の返し方
+
+- `return` で終了ステータスを返す
+- `echo` で標準出力に出力する
+
+```bash
+my_func() {
+  [[ $1 = "ng" ]] && return 1
+  return 0
+}
+
+my_func
+[[ $? = 1 ]] && echo "ng"
+
+to_lower() {
+  input="$1"
+  output=$(echo $input | tr [A-Z] [a-z])
+  echo "${output}"
+}
+```
