@@ -545,5 +545,31 @@ print_arg 111
 
 print_args() {
   echo "input is $@"
+
+  arr=$@
+  echo "arr ${arr[*]}"
 }
+```
+
+### スコープ
+
+```bash
+my_value="outer value"
+
+myfunc() {
+  my_value="updated"
+}
+
+myfunc
+echo "${my_value}"
+# => updated
+
+myfunc2() {
+  local my_value="updated2"
+}
+
+myfunc2
+
+echo "${my_value}"
+# => updated (更新されない)
 ```
