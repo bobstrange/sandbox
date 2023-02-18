@@ -521,4 +521,29 @@ done < servers.txt
 
 ## Chapter 7
 
-`declare -F` シェル環境内にある関数を一覧化
+関数を作成する方法
+`function` キーワードは、移植性のため推奨されていない
+
+```bash
+function-name() {
+  <code to execute>
+}
+
+function <function-name> {
+  <code to execute>
+}
+```
+
+### パラメータ
+
+```bash
+print_arg() {
+  echo "Input is $1"
+}
+
+print_arg 111
+
+print_args() {
+  echo "input is $@"
+}
+```
