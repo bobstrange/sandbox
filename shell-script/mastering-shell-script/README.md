@@ -630,3 +630,15 @@ IFS="${OLDIFS}"
 sed 'p' /etc/passwd
 ```
 
+`-n` でマッチしたパターン空間の表示を抑制
+'n,m' で範囲を指定 (※ n は行数なので 1 スタート)
+
+```bash
+sed -n '1,3 p' /etc/passwd
+```
+
+正規表現パターンで範囲指定もできる
+
+```bash
+sed -n '/^root/ p' /etc/passwd
+```
