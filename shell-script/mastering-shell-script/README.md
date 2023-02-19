@@ -594,3 +594,30 @@ to_lower() {
   echo "${output}"
 }
 ```
+
+## Chapter 8
+
+### CSV ファイルの解析
+
+↓のような product, price, quantity 形式の CSV を読みこんで出力する
+
+drill,99,5
+hammer,10,50
+brush,5,100
+lamp,25,30
+
+```bash
+OLDIFS="${IFS}"
+
+# カンマ区切り
+IFS=","
+
+while read product price quantity; do
+  echo "==================\n"
+  echo "product: ${product}"
+  echo "price: ${price}"
+  echo "quantity: ${price}"
+done < "$1"
+
+IFS="${OLDIFS}"
+```
