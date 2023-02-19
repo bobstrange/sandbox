@@ -621,3 +621,12 @@ done < "$1"
 
 IFS="${OLDIFS}"
 ```
+
+### sed
+
+`'p'` -> マッチしたパターンを表示
+
+```bash
+sed 'p' /etc/passwd
+```
+
