@@ -658,4 +658,13 @@ sed -n '/^root/ p' /etc/passwd
 ```bash
 sed -n '/^bob/ p' /etc/passwd
 # => bob:x:1000:1000:bob,,,:/home/bob:/bin/zsh
+
+sed -n '/^bob/ s/zsh/sh/p' /etc/passwd
+# => bob:x:1000:1000:bob,,,:/home/bob:/bin/sh
+
+# /bin/zsh とすることで対象を絞り込む
+sed -n '/^bob/ s/\/bin\/zsh/\/bin\/sh/p' /etc/passwd
+
+# 区切り文字は ; や @ などが使える
+sed -n '/^bob/ s;/bin/zsh;/bin/sh;p' /etc/passwd
 ```
