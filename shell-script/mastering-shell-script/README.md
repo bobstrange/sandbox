@@ -711,3 +711,24 @@ sed '3d' myfile
 # 2 ~ 5 行目を削除
 sed '2,5d' myfile
 ```
+
+`i` コマンドで insert (前), `a` コマンドで append (後)
+
+```bash
+# 2 行目の前に追加
+cat <<EOF | sed -e '2i\inserted text' -e '2a\appended text'
+First line
+Second line
+Third line
+Fourth line
+EOF
+
+First line
+inserted text
+Second line
+appended text
+Third line
+Fourth line
+```
+
+
