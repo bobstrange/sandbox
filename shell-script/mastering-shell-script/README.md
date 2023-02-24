@@ -731,4 +731,20 @@ Third line
 Fourth line
 ```
 
+`c` コマンドで、行全体を変更
+
+```bash
+cat <<EOF | sed -e '2c\modified the second line'
+First line
+Second line
+Third line
+EOF
+```
+
+`y` コマンドで、任意の文字や数字を別のものに置き換える
+
+```bash
+sed 'y/abc/ABC/' myfile
+```
+
 
