@@ -699,3 +699,15 @@ sed '3,5s/old text/new text/' myfile
 # 2 ~ 終了まで
 sed '2,$s/old text/new text/' myfile
 ```
+
+`-i` でファイルの編集
+`i.bak` で、`元ファイル名.bak` のバックアップファイルが生成される
+
+`d` コマンドで削除
+
+```bash
+# 3 行目を削除
+sed '3d' myfile
+# 2 ~ 5 行目を削除
+sed '2,5d' myfile
+```
