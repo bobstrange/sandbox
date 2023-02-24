@@ -686,3 +686,16 @@ EOF
 # => Hello, sed is a powerful editing tool. I love working with Linux sed
 # If you master sed, you will be a professional one
 ```
+
+特定の行数を指定
+
+```bash
+# 2 行目
+sed '2s/old text/new text/' myfile
+
+# 3 ~ 5 行目
+sed '3,5s/old text/new text/' myfile
+
+# 2 ~ 終了まで
+sed '2,$s/old text/new text/' myfile
+```
