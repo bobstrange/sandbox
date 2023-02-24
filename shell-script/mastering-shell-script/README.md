@@ -668,3 +668,21 @@ sed -n '/^bob/ s/\/bin\/zsh/\/bin\/sh/p' /etc/passwd
 # 区切り文字は ; や @ などが使える
 sed -n '/^bob/ s;/bin/zsh;/bin/sh;p' /etc/passwd
 ```
+
+```bash
+# g で全出現パターンを更新
+cat <<EOF | sed 's/sed/Linux sed/g'
+Hello, sed is a powerful editing tool. I love working with sed
+If you master sed, you will be a professional one
+EOF
+
+# 番号を入れると特定のマッチしたものを変更
+cat <<EOF | sed 's/sed/Linux sed/2'
+Hello, sed is a powerful editing tool. I love working with sed
+If you master sed, you will be a professional one
+EOF
+
+# 各行 2 番目のみ
+# => Hello, sed is a powerful editing tool. I love working with Linux sed
+# If you master sed, you will be a professional one
+```
