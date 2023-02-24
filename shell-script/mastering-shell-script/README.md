@@ -747,4 +747,13 @@ EOF
 sed 'y/abc/ABC/' myfile
 ```
 
+複数のコマンドを実行
+
+`-e` を使って
+
+```bash
+sed -e 's/First/XFirst/; s/Second/XSecond/' myfile
+sed -e 's/First/XFirst/' -e 's/Second/XSecond/' myfile
+```
+
 
