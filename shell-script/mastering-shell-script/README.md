@@ -756,4 +756,13 @@ sed -e 's/First/XFirst/; s/Second/XSecond/' myfile
 sed -e 's/First/XFirst/' -e 's/Second/XSecond/' myfile
 ```
 
+## Chapter 9
 
+### sed その2
+
+`-n` 標準出力を抑制
+`'p'` マッチするパターンを表示 (フィルタリングしない場合はファイル全部)
+
+```bash
+sed -n 'p' httpd.conf
+```
