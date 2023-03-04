@@ -784,6 +784,13 @@ sed -n '355,361 p' httpd.conf
 行番号をハードコーディングするのではなく、開始と終了タグでマッチングする
 
 ```bash
-sed -n '/^#<VirtualHost/,/^#<\/VirtualHost/ p' httpd.conf
+sed -n '/^#<VirtualHost .*>/,/^#<\/VirtualHost/ p' httpd.conf
 ```
 
+### sed スクリプトファイル
+
+`sed` をスクリプトから読み込むためのオプション `-f`
+
+```bash
+sed -nf ./vh.sed httpd.conf
+```
