@@ -808,3 +808,14 @@ awk '{ print $0 }' /etc/passwd
 
 `$0` 行全体
 `$n` n 番目のフィールド
+
+awk のデフォルトセパレーター
+スペース, 任意の数のスペース, タブ, 改行
+
+`-F` オプション
+
+```bash
+awk -F ':' '{ print $2 }' /etc/passwd
+
+awk 'BEGIN { FS=":" } { print $1 }' /etc/passwd
+```
