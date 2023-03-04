@@ -794,3 +794,17 @@ sed -n '/^#<VirtualHost .*>/,/^#<\/VirtualHost/ p' httpd.conf
 ```bash
 sed -nf ./vh.sed httpd.conf
 ```
+
+## Chapter 10
+
+```bash
+awk 'BEGIN { print "Hello World" }'
+```
+
+```bash
+awk '{ print }' /etc/passwd
+awk '{ print $0 }' /etc/passwd
+```
+
+`$0` 行全体
+`$n` n 番目のフィールド
