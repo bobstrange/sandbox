@@ -822,3 +822,16 @@ awk 'BEGIN { FS=":" } { print $1 }' /etc/passwd
 
 メインブロックのコードは各行に対して処理される
 `BEGIN` と `END` は、最初と最後に一度だけ処理される
+
+```bash
+awk 'BEGIN { FS=":" } { print $1 } END { print NR }' /etc/passwd
+```
+
+`NR` -> 現在までに処理した行の数
+
+```bash
+awk '
+BEGIN { FS=":" }
+{ print NR,$1 }
+END { print NR }' /etc/passwd
+```
