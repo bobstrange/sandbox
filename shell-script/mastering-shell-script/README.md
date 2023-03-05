@@ -835,3 +835,19 @@ BEGIN { FS=":" }
 { print NR,$1 }
 END { print NR }' /etc/passwd
 ```
+
+`NR` を使って、処理対象の行を選択できる
+
+```bash
+# 最初の 5 行を表示
+awk 'NR < 6' /etc/passwd
+
+# 8 ~ 12 行目を表示
+awk 'NR == 8,NR == 12' /etc/passwd
+```
+
+正規表現でも処理対象の行を選択できる
+
+```bash
+awk '/bash$/' /etc/passwd
+```
