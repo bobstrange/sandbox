@@ -862,3 +862,18 @@ awk '/bash$/' /etc/passwd
 `NF` 現在のレコードのフィールド数
 `NR` 現在のファイルで処理したレコード数
 `IGNORECASE` 大文字小文字を区別しない
+
+```bash
+awk '
+BEGIN {
+  var = "Welcome to AWK programming"
+  print var
+
+  foo = "John"
+  bar = "Doe"
+
+  # 文字列連結
+  print foo " " bar
+}
+'
+```
