@@ -898,6 +898,29 @@ awk '{
 
 ```bash
 awk 'BEGIN { FS=":"}
-{ printf "%15s %4d %20s\n", $1, $3, $7 }
+{ printf "%20s %4d %20s\n", $1, $3, $7 }
 ' /etc/passwd
+```
+
+## Chapter 11
+
+基本正規表現 (Basic Regular Expression)
+拡張正規表現 (Extended Regular Expression)
+
+```bash
+echo "Welcome to shell scripting" | sed -n '/shell/p'
+echo "Welcome to shell scripting" | awk '/shell/ { print $0 }'
+```
+
+行頭 `^` と、行末 `$`
+
+```bash
+cat <<EOF | awk '!/^$/ { print $0 }'
+Lorem Ipsum is simply dummy text.
+
+Lorem Ipsum has been the industry's standard dummy.
+It has survived not only five centuries
+
+It is a long established fact that a reader will be distracted.
+EOF
 ```
