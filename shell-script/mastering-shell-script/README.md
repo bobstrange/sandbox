@@ -893,3 +893,11 @@ awk '{
     }
 }' myfile
 ```
+
+### 出力の制御
+
+```bash
+awk 'BEGIN { FS=":"}
+{ printf "%15s %4d %20s\n", $1, $3, $7 }
+' /etc/passwd
+```
