@@ -877,3 +877,19 @@ BEGIN {
 }
 '
 ```
+
+### 条件文
+
+```bash
+awk '{ if ($1 > 50) print $1 }' myfile
+
+awk '{
+    if ($1 > 50) {
+        x = $1 * 2
+        print x
+    } else {
+        x = $1 * 3
+        print x
+    }
+}' myfile
+```
