@@ -923,4 +923,38 @@ It has survived not only five centuries
 
 It is a long established fact that a reader will be distracted.
 EOF
+
+# > Lorem Ipsum is simply dummy text.
+# > Lorem Ipsum has been the industry's standard dummy.
+# > It has survived not only five centuries
+# > It is a long established fact that a reader will be distracted.
 ```
+
+`awk '!/^$/'` で空行を除外
+
+`.` -> `\n` 以外の任意の文字にマッチ
+
+### 文字クラス
+
+特定の文字にマッチさせたい場合 `[]` の間に記述
+
+```bash
+cat <<EOF | sed -n '/[mbr]ash/ p'
+I love bash scripting.
+I hope It works without a crash.
+Or I'll smash it.
+EOF
+```
+
+文字クラスの中で `^` を使って否定できる
+
+```bash
+cat <<EOF | sed -n '/[^br]ash/ p'
+I love bash scripting.
+I hope It works without a crash.
+Or I'll smash it.
+EOF
+```
+
+`[a-z]` のように一連の文字を指定できる
+
