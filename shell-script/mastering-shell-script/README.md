@@ -970,3 +970,27 @@ EOF
 - `[[:digit:]]`
 - `[[:print:]]`
 - `[[:punct:]]`
+
+```bash
+cat <<EOF | sed -n '/[[:upper:]]/ p'
+this line does not contain upper case
+This LINE contains UPPER CASE
+this line does not contain upper case as well
+EOF
+```
+
+## ERE (Extended Regular Expression)
+
+`?` 前の文字が 0 or 1 個のみ存在するときにマッチ
+`+` 前の文字が 1 個以上存在するときにマッチ
+(`*` は 0 個以上)
+
+`{}` 前の文字 or 文字クラスが存在する数
+
+```bash
+cat <<EOF | sed -n '/[0-9]{2-4}-[0-9]{2-4}-[0-9]{2-4}/ p'
+name: john doe
+email: john-doe@gmail.com
+phone-number: 080-1111-2222
+EOF
+```
