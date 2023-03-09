@@ -1002,3 +1002,11 @@ echo "welcome to shell scripting" | awk '/Linux|bash|shell/ { print $0 }'
 echo "welcome to bash scripting" | awk '/Linux|bash|shell/ { print $0 }'
 echo "welcome to Linux scripting" | awk '/Linux|bash|shell/ { print $0 }'
 ```
+
+### グループ化
+
+```bash
+echo "welcome to shell scripting" | awk '/(bash scripting)?/ { print $0 }'
+echo "welcome to shell scripting" | awk '/(bash scripting)+/ { print $0 }'
+
+```
