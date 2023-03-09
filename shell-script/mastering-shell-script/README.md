@@ -994,3 +994,11 @@ email: john-doe@gmail.com
 phone-number: 080-1111-2222
 EOF
 ```
+
+`|` 渡された文字のいずれかにマッチ (OR)
+
+```bash
+echo "welcome to shell scripting" | awk '/Linux|bash|shell/ { print $0 }'
+echo "welcome to bash scripting" | awk '/Linux|bash|shell/ { print $0 }'
+echo "welcome to Linux scripting" | awk '/Linux|bash|shell/ { print $0 }'
+```
