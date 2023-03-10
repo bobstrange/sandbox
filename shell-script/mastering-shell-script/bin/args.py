@@ -2,5 +2,8 @@
 
 import sys
 
-print("Hello " + sys.argv[1])
-print(f"Length is: {len(sys.argv)}")
+count = len(sys.argv)
+if count > 1:
+    print(f"Arguments suppried: {len(sys.argv)}")
+    print(f"Hello {sys.argv[1]}")
+print(f"Exiting {sys.argv[0]}")
