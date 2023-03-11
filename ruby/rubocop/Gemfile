@@ -10,4 +10,5 @@ group :development do
   gem "rubocop", require: false
   gem "pry"
   gem "pry-byebug"
+  gem "rspec"
 end
