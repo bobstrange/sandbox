@@ -6,6 +6,7 @@ gem "parser"
 
 group :development do
   gem "solargraph"
+  gem "yard"
   gem "rubocop", require: false
   gem "pry"
   gem "pry-byebug"

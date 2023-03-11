@@ -76,6 +76,7 @@ DEPENDENCIES
   pry-byebug
   rubocop
   solargraph
+  yard
 
 BUNDLED WITH
    2.4.8
