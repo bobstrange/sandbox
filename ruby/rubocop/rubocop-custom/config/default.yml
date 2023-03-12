@@ -1,0 +1,6 @@
+# Write it!
+
+Style/SimplifyNotEmptyWithAny:
+  Description: 'TODO: Write a description of the cop.'
+  Enabled: pending
+  VersionAdded: '<<next>>'
