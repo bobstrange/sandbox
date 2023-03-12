@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # TODO: when finished, run `rake generate_cops_documentation` to update the docs
+
 module RuboCop
   module Cop
     module Style
@@ -39,6 +40,8 @@ module RuboCop
       #   good_foo_method(args)
       #
       class SimplifyNotEmptyWithAny < Cop
+        include RuboCop::RSpec::ExpectOffense
+
         # TODO: Implement the cop in here.
         #
         # In many cases, you can use a node matcher for matching node pattern.
@@ -48,11 +51,11 @@ module RuboCop
         MSG = 'Use `#good_method` instead of `#bad_method`.'
 
         def_node_matcher :not_empty_call?, <<~PATTERN
-          (send nil? :bad_method ...)
+          (send (send (send $...) empty?) :!)
         PATTERN
 
         def on_send(node)
-          return unless bad_method?(node)
+          return unless not_empty_call?(node)
 
           add_offense(node)
         end

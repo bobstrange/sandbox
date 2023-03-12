@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
+require_relative "../simplify_not_empty_with_any"
+
 RSpec.describe RuboCop::Cop::Style::SimplifyNotEmptyWithAny do
   subject(:cop) { described_class.new(config) }
 
   let(:config) { RuboCop::Config.new }
 
-  # TODO: Write test code
-  #
   # For example
-  it 'registers an offense when using `#bad_method`' do
+  it 'registers an offense when using  !a.empty?' do
     expect_offense(<<~RUBY)
-      bad_method
-      ^^^^^^^^^^ Use `#good_method` instead of `#bad_method`.
+      !array.empty?
     RUBY
   end
 
-  it 'does not register an offense when using `#good_method`' do
+  it 'does not register an offense when using `.any?` or `.empty?' do
     expect_no_offenses(<<~RUBY)
-      good_method
+      array.any?
+      array.empty?
     RUBY
   end
 end
