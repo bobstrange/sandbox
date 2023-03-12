@@ -8,6 +8,7 @@ group :development do
   gem "solargraph"
   gem "yard"
   gem "rubocop", require: false
+  gem 'rubocop-extension-generator', require: false
   gem "pry"
   gem "pry-byebug"
   gem "rspec"
