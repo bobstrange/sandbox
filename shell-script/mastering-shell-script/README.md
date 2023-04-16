@@ -87,7 +87,7 @@ unset myarr
 [Command Substitution](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Command-Substitution)
 [SC2006](https://www.shellcheck.net/wiki/SC2006)
 
-backticks `` より、$() が推奨されている
+backticks \`\` より、$() が推奨されている
 
 ```bash
 # $()
