@@ -27,3 +27,23 @@ lookup = lambda do |album, track = nil|
 end
 
 puts album_artists.size
+
+# Pattern 2
+# store album artists and album track artists together
+# Memory usage: good
+# Search speed: not good. If you want to search by only album name, we have to
+# generate artist list for all tracks in the album.
+albums = {}
+album_infos.each do |album, track, artist|
+  ((albums[album] ||= {})[track] ||= []) << artist
+end
+
+lookup_album = lambda do |album, track = nil|
+  if track
+    albums.dig(album, track)
+  else
+    albums[album].map do |_, artist|
+      artist
+    end.uniq
+  end
+end
