@@ -4,31 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "d933ccabeb7adb0c",
+        "id": "5db6736c4885e545",
         "type": "tabs",
         "children": [
           {
-            "id": "6308e01c9acf0cf4",
+            "id": "b017bc24a2129b1a",
             "type": "leaf",
             "state": {
               "type": "empty",
               "state": {}
             }
-          },
-          {
-            "id": "ecf428f9e85ad446",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Untitled.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -94,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Untitled.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Untitled.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Untitled.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -156,8 +139,9 @@
       "example-plugin:Sample Plugin": false
     }
   },
-  "active": "ecf428f9e85ad446",
+  "active": "b017bc24a2129b1a",
   "lastOpenFiles": [
+    "2023-06-01.md",
     "Untitled.md"
   ]
 }

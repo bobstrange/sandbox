@@ -1,4 +1,5 @@
 [
   "obsidian-sample-plugin",
-  "example-plugin"
+  "example-plugin",
+  "hot-reload"
 ]
