@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    retryable (3.0.5)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  retryable
+
+BUNDLED WITH
+   2.4.8
