@@ -22,6 +22,20 @@ class TestRetryable < Minitest::Test
     end
   end
 
+  def test_ok
+    result = Retryable.retryable(
+      on:         StandardError,
+      sleep:      0.1,
+      tries:      3,
+      log_method: log_method
+
+    ) do
+      [1, 2, 3]
+    end
+
+    assert_equal(result, [1, 2, 3])
+  end
+
   def test_error
     error = assert_raises RuntimeError do
       Retryable.retryable(
